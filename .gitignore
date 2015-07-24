@@ -1,0 +1,12 @@
+*~
+ltxpng/*
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.tex
+*.toc
+auto/*.el
+*.org
+exercises/
