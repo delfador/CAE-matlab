@@ -1,9 +1,15 @@
+% Define function and true parameter
 a = [4; -1];
 truefun = @(x)(nonlinfun(a,x)); % the true function
 
+% Create a data set
 x = (0:0.1:1)';
 y = truefun(x) + 0.3*randn(size(x)); % add some noise
-a0 = [1; 1]; lb = []; ub = [];  % initial estimate, no lower/upper bounds
+
+%% Try to estimate parameter 'a' using data (x,y)
+
+% initial estimate, no lower/upper bounds
+a0 = [1; 1]; lb = []; ub = [];
 
 % Change some solver options
 opt = optimset('lsqcurvefit');
@@ -12,9 +18,11 @@ opt = optimset(opt, ...
                'jacobian', 'on', ...
                'derivativecheck', 'on');
 
+% Estimate 'a'
 ahat = lsqcurvefit(@nonlinfun, a0, x, y, lb, ub, opt);
 
-estimfun = @(x)(nonlinfun(ahat,x)); % the estimated function
+% Anonymous function for the estimated function by pluggin in the estimate
+estimfun = @(x) nonlinfun(ahat,x);
 
 % Plot the results
 clf; plot(x, y, '.');

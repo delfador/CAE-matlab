@@ -7,7 +7,7 @@ X = [x.^2, x, ones(m,1)]        % data/regression matrix
 y = X*beta + normrnd(0, sigma, m, 1); % the perturbed y-values
 
 %% Do the regression and some analysis
-b = X\y;                        % estimate
+b = X\y;                        % estimate beta
 yhat = X*b;                     % predictions
 e = y - yhat;                   % errors
 sigmahat = sqrt(e'*e/(m-length(b))); % estimate for sigma
@@ -18,7 +18,7 @@ fprintf(1, '%8g %8.4f\n', [beta, b]');
 fprintf(1, '\nStandard deviation (true and estimated)\n');
 fprintf(1, '%8g %8.4f\n', [sigma, sigmahat]');
 
-%% Do some vizualization
+%% Do some visualization
 fun = @(x,beta) beta(1)*x.^2 + beta(2)*x + beta(3);
 
 figure;

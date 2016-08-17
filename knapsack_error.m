@@ -37,17 +37,22 @@ end
 %% Initialize
 n = length(v);
 X = zeros(c+1, n);              % assignment for capacity k-1
-f = zeros(c+1, 1);              % f(k) = value for capacity k-1
+f = zeros(c+1, 1);              % f(k) = optimal value for capacity k-1
 g = repmat(0, 1, n);
 
-%% Loop over all capacities from 1 to c
+%% Dynamic programming: loop over all capacities from 1 to c
 for k = 1:c
 
   % Check which items can be included for this capacity
   i = (k >= w);
-  % Value if we use item i
+
+  % If we use item i then the total value is the value of item i plus the
+  % value of the remaining capacity.
   g(i) = v(i) + f(c-w(i)+1)';
+
+  % Get the item with the highest value
   [maxg, j] = max(g);
+
   if maxg > f(k)
     % Result is better than the result for capacity k-1
     f(k+1) = maxg;
