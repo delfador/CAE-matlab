@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-08-17 Wed 12:57 -->
+<!-- 2016-08-30 Tue 10:08 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Computational Aspects of Econometrics and OR: MATLAB</title>
@@ -173,9 +173,9 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline13">1. Overview Matlab part of the course</a></li>
 <li><a href="#orgheadline33">2. Efficient coding</a></li>
 <li><a href="#orgheadline41">3. Cell and structure arrays</a></li>
-<li><a href="#orgheadline11">4. Generic programming &amp; good documentation</a></li>
-<li><a href="#orgheadline34">5. Function handles &amp; anonymous functions</a></li>
-<li><a href="#orgheadline59">6. Linear algebra</a></li>
+<li><a href="#orgheadline34">4. Function handles &amp; anonymous functions</a></li>
+<li><a href="#orgheadline11">5. Generic programming &amp; good documentation</a></li>
+<li><a href="#orgheadline48">6. Linear algebra</a></li>
 <li><a href="#orgheadline68">7. Graphics</a></li>
 <li><a href="#orgheadline75">8. Regression</a></li>
 <li><a href="#orgheadline81">9. Interpolation</a></li>
@@ -1748,14 +1748,373 @@ write the new implementation of <code>combsum</code>.</li>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11"><a id="ID-d0f0cd2a-3770-4b51-a2ab-5e42f76dce91"></a><span class="section-number-2">4</span> Generic programming &amp; good documentation</h2>
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34"><a id="ID-45deb06a-1b77-4d12-ae30-fb32575ea4d8"></a><span class="section-number-2">4</span> Function handles &amp; anonymous functions</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 <div id="outline-container-orgheadline42" class="outline-3">
 <h3 id="orgheadline42"><span class="section-number-3">4.1</span> Introduction</h3>
 <div class="outline-text-3" id="text-4-1">
+<p>
+You should already be familiar with the concept of m-file functions,
+because it's the standard way to define a function in Matlab.  M-file
+functions allow you to divide your computations in independent pieces
+of code, which can be called whenever you like.  However, it is a bit
+annoying when you have to create a m-file function for a one line
+function definition.  Sometimes this is necessary though, for example
+when you have to define the objective function of an optimization
+problem, because the optimization tool requires this as an input.
+This is where function handles and anonymous functions are extremely
+convenient as we shall see.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">4.2</span> Function handles</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+A function handle is nothing more than a <i>reference</i> to another
+function.  This is a simple example how to create and use a reference
+to a built-in Matlab function.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">f = @sin;                       <span style="color: #586e75; font-style: italic;">% reference to the sin function</span>
+x = f(<span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</span>(0<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>2))             <span style="color: #586e75; font-style: italic;">% evaluate sin through the function handle f</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-fundamental">x =
+
+         0    1.0000    0.0000   -1.0000   -0.0000
+</pre>
+</div>
+
+<p>
+This also works for multiple input and output arguments.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">g = @min;
+A = [1 2
+     4 3];
+[x,i] = g(A,[],2)               <span style="color: #586e75; font-style: italic;">% find row minimum (traverse along 2nd dimension)</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-fundamental">x =
+
+     1
+     3
+
+
+i =
+
+     1
+     2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44"><span class="section-number-3">4.3</span> Anonymous functions</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+An <a href="http://www.mathworks.nl/help/matlab/matlab_prog/anonymous-functions.html">anonymous function</a> is a special type of function handle to a
+function for which no m-file function exists.  You can see it as an
+alternative to inline functions.  Actually, anonymous functions are
+much more flexible and faster than inline functions, so use anonymous
+functions from now on.
+</p>
+
+<p>
+Here is a simple example of an anonymous function:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">f = @(x) poisspdf(x, 5)
+</pre>
+</div>
+<p>
+This statement defines a function handle <code>f</code> to a function of one
+variable <code>x</code>, which is defined by <code>poisspdf(x,5)</code>.  Hence, <code>f(2)</code>
+would return the same output as <code>poisspdf(2,5)</code>, which is the
+probability that a Poisson distributed random variable with mean 5 is
+equal to 2.  Note that the variable <code>x</code>, which is used in the
+definition of the anonymous function has no effect on a variable with
+the same name in the current workspace.
+</p>
+
+<p>
+We can also define functions with multiple input arguments and use
+variables from the workspace in the definition.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">a = 1;
+c = 2;
+f = @(x,a) a<span style="color: #b58900;">.*</span>(x<span style="color: #b58900;">-</span>c)<span style="color: #b58900;">.^</span>2;
+</pre>
+</div>
+<p>
+Note that we are using element-wise arithmetic operators in the
+definition.  This allows us to call the function with non-scalar
+inputs (as long as they match in size of course).  Another important
+thing to remember is that changing the value of <code>c</code> has no effect on
+the definition of <code>f</code>: only the value of <code>c</code> at the time of the
+definition is relevant!  On the other hand, the value of <code>a</code> in the
+workspace has no effect at all on the function <code>f</code> where <code>a</code> is only
+used as a (temporary) reference to the second input argument of <code>f</code>.
+These notions explain the results of the following commands.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">t = [4 4 5 5];
+b = [1 2 1 2];
+y = f(t,b);
+a = 100;
+c = 100;
+y = [y; f(t,b)]
+</pre>
+</div>
+<p>
+Changing the variables <code>a</code> and <code>c</code> has no effect on the output as you
+can see:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-fundamental">y =
+
+     4     8     9    18
+     4     8     9    18
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">4.4</span> Illustrative example</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Now that we have seen how to define anonymous functions, let's have a
+look at some examples where anonymous functions are very useful.  We
+can use them
+</p>
+<ul class="org-ul">
+<li>to pass a function to another function,</li>
+<li>to capture data values for later use by a function,</li>
+<li>to call functions outside of their normal scope.</li>
+</ul>
+
+<p>
+A useful Matlab function is the <code>fzero</code> function, which you can use
+to find the zero location of a function of a scalar variable.  For
+instance:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-fundamental">&gt;&gt; fzero(@log, 2)
+
+ans =
+
+    1
+</pre>
+</div>
+<p>
+<code>@log</code> is a function handle of the function for which we want to find
+the root and the second argument is an initial guess of the
+location of the root.
+</p>
+
+<p>
+Often, you don't want to find the location where a function is equal
+to zero, but the location where it is equal to a certain value <code>c</code>,
+which is not necessarily equal to zero.  What to do if we want to find
+the location where the gamma function is equal to 10?  Without
+anonymous functions, we would have to define an m-file function that,
+for a given input <code>x</code>, returns <code>gamma(x)-10</code>, and use that function as
+the input for <code>fzero</code>.  We would have to repeat this procedure for
+other targets than <code>10</code>.  Of course, we can easily define a function
+with a second input argument that represents the target, but <code>fzero</code>
+requires a function with only one input variable.
+</p>
+
+<p>
+This problem is easily solved with anonymous functions:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">f = @(x) gamma(x)<span style="color: #b58900;">-</span>10;
+x = fzero(f, 2)
+</pre>
+</div>
+<p>
+We can even do it in one line:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">x = fzero(@(x) gamma(x)<span style="color: #b58900;">-</span>10, 2)
+</pre>
+</div>
+
+<p>
+We can take this idea even one step further by defining a function
+that generalizes the <code>fzero</code> function to include an input variable
+that represents the target.  Consider the m-file function
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">x</span> = <span style="color: #268bd2;">ftarget</span>(<span style="color: #268bd2;">f</span>, <span style="color: #268bd2;">target</span>, <span style="color: #268bd2;">x0</span>)
+
+g = @(x)(f(x) <span style="color: #b58900;">-</span> target);
+x = fzero(g, x0);
+</pre>
+</div>
+<p>
+Now we can do
+</p>
+<div class="org-src-container">
+
+<pre class="src src-fundamental">&gt;&gt; [ftarget(@log, 1, 2), ftarget(@gamma, 120, 3), ftarget(@normcdf, 0.975, 3)]
+
+ans =
+
+    2.7183    6.0000    1.9600
+</pre>
+</div>
+<p>
+Note that we could have obtained the same results from the following
+anonymous function instead of the m-file function above.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-matlab">ftarget = @(fun, target, x0) fzero(@(x) fun(x)<span style="color: #b58900;">-</span>target, x0)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50"><span class="section-number-3">4.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-4-5">
+</div><div id="outline-container-orgheadline46" class="outline-4">
+<h4 id="orgheadline46"><a id="ID-6cb3074d-f8f9-4abf-82ae-3f33c1e0adb4"></a><span class="section-number-4">4.5.1</span> Piecewise function</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<p>
+Define the following function as an anonymous function.  Make sure
+that the function allows non-scalar input.  Note that you can't use
+<code>if</code> statements or loops in the definition of an anonymous function.
+</p>
+\begin{equation*}
+f(x) = \begin{cases}
+x+1 & \mathrm{if\ } x \leq 1\\
+x+3 & \mathrm{if\ } 1 < x \leq 2 \\
+7-x^2/2 & \mathrm{if\ } x > 2
+\end{cases}
+\end{equation*}
+
+<p>
+Plot the function using <code>fplot</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline47" class="outline-4">
+<h4 id="orgheadline47"><a id="ID-4355d7d3-abc5-4437-bcc6-a2368c26e350"></a><span class="section-number-4">4.5.2</span> Expected value</h4>
+<div class="outline-text-4" id="text-4-5-2">
+<p>
+Let \(X\) be a gamma distributed random variable with shape parameter 5
+and scale parameter 2.  Write an anonymous function <code>Efx</code> that returns
+\(E[f(X)]\) for a function \(f(.)\).  For instance, \(E[\log(X)]\) can be
+calculated by <code>Efx(@log)</code>.  You'll need to find a (built-in) function
+you can use to evaluate an integral.  Use your version of <code>Efx</code> to
+calculate
+</p>
+<ol class="org-ol">
+<li>\(E[\log(X)]\)</li>
+<li>\(E[1/X]\)</li>
+<li>\(E[\cos(X)]\)</li>
+<li>\(E[(X-10)^2]\) Note that this should return the variance of \(X\): 20.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgheadline49" class="outline-4">
+<h4 id="orgheadline49"><a id="ID-739fd4a2-abd2-4ad5-b5e6-8a2847b66922"></a><span class="section-number-4">4.5.3</span> Solving nonlinear equations</h4>
+<div class="outline-text-4" id="text-4-5-3">
+<p>
+In this exercise we will try to solve a system of <i>nonlinear</i>
+equations.  Note that we will discuss <i>linear</i> equations in the
+section about <a href="#orgheadline48">Linear algebra</a>.
+</p>
+
+<p>
+Make an anonymous function for \(f:\mathbb{R}^n \rightarrow \mathbb{R}^n\) with \(n\) an
+even natural number and
+</p>
+\begin{equation*}
+f(x) = \begin{bmatrix} g(x) \\ h(x) \end{bmatrix},
+\end{equation*}
+<p>
+with
+</p>
+\begin{equation*}
+g_i(x) = 1 - x_{2i-1}, \qquad i=1,\dots,n/2
+\end{equation*}
+<p>
+and
+</p>
+\begin{equation*}
+h_i(x) = 10(x_{2i-1}-x_{2i})^2, \qquad i=1,\dots,n/2
+\end{equation*}
+<p>
+Note that it is not too difficult to do this without having to define
+the functions \(g(.)\) and \(h(.)\) first.  For instance, the function
+\(g(.)\) is easily defined by <code>1-x(1:2:end-1)</code>.  Moreover, you can write
+a single anonymous function that works for all (even) \(n\).
+</p>
+
+<p>
+We are interested in solving the nonlinear system of equations
+\(f(x)=0\), which has \(n\) equations and \(n\) unknowns.  It can easily be
+verified that the n-dimensional all-one vector is a solution for this
+problem.
+</p>
+
+<p>
+Now try to find this solution numerically using the <code>fsolve</code> function.
+Read the documentation about how to use this function.  Pick a random
+initial guess&#x2014;i.e., generate it using a random number generator&#x2014;and
+make sure to have the function display some output so that you can
+check the number of function evaluations.
+</p>
+
+<p>
+Now do the same, but also provide <code>fsolve</code> with the Jacobian (first
+derivative) of \(f(.)\).  You cannot use an anonymous function for that.
+This time you have to write a m-file function to compute the function
+\(f\) (first output argument) and its Jacobian (second output argument).
+</p>
+
+<p>
+If you run the algorithm again, then you should see that the number of
+function evaluations is much smaller than in the case without the
+Jacobian.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><a id="ID-d0f0cd2a-3770-4b51-a2ab-5e42f76dce91"></a><span class="section-number-2">5</span> Generic programming &amp; good documentation</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">5.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 More often than not, Matlab is the number one choice among the tools
 that I would consider as an alternative to solve a particular problem.
@@ -1796,9 +2155,9 @@ functions and complex pieces of code.</dd>
 </div>
 </div>
 
-<div id="outline-container-orgheadline47" class="outline-3">
-<h3 id="orgheadline47"><span class="section-number-3">4.2</span> Generic programming</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56"><span class="section-number-3">5.2</span> Generic programming</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 As explained in the introduction, the idea is to split a problem in
 smaller subproblems.  It is hard to give specific rules here; you
@@ -1824,9 +2183,9 @@ following sections.
 </p>
 </div>
 
-<div id="outline-container-orgheadline43" class="outline-4">
-<h4 id="orgheadline43"><span class="section-number-4">4.2.1</span> Allowing higher dimensional inputs than necessary for your original problem</h4>
-<div class="outline-text-4" id="text-4-2-1">
+<div id="outline-container-orgheadline52" class="outline-4">
+<h4 id="orgheadline52"><span class="section-number-4">5.2.1</span> Allowing higher dimensional inputs than necessary for your original problem</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <p>
 Suppose that you want to compute the shape and scale parameters of a
 gamma distribution that correspond to a given mean and standard
@@ -1843,9 +2202,9 @@ loop again and again.
 </div>
 </div>
 
-<div id="outline-container-orgheadline44" class="outline-4">
-<h4 id="orgheadline44"><span class="section-number-4">4.2.2</span> Adding additional input arguments that control the behavior of the function</h4>
-<div class="outline-text-4" id="text-4-2-2">
+<div id="outline-container-orgheadline53" class="outline-4">
+<h4 id="orgheadline53"><span class="section-number-4">5.2.2</span> Adding additional input arguments that control the behavior of the function</h4>
+<div class="outline-text-4" id="text-5-2-2">
 <p>
 Suppose that you need to compute the 4-period moving average of
 multiple time series with quarterly data.  Because you may need to
@@ -1859,9 +2218,9 @@ moving average.
 </div>
 </div>
 
-<div id="outline-container-orgheadline45" class="outline-4">
-<h4 id="orgheadline45"><span class="section-number-4">4.2.3</span> Providing default values for some input variables</h4>
-<div class="outline-text-4" id="text-4-2-3">
+<div id="outline-container-orgheadline54" class="outline-4">
+<h4 id="orgheadline54"><span class="section-number-4">5.2.3</span> Providing default values for some input variables</h4>
+<div class="outline-text-4" id="text-5-2-3">
 <p>
 Continuing on the previous example, we can make the additional input
 argument optional.  Hence, the user is not required to use it, and in
@@ -1898,9 +2257,9 @@ See the Matlab help and <a href="http://ubcmatlabguide.github.io/html/writingFun
 </div>
 </div>
 
-<div id="outline-container-orgheadline46" class="outline-4">
-<h4 id="orgheadline46"><span class="section-number-4">4.2.4</span> Providing additional output</h4>
-<div class="outline-text-4" id="text-4-2-4">
+<div id="outline-container-orgheadline55" class="outline-4">
+<h4 id="orgheadline55"><span class="section-number-4">5.2.4</span> Providing additional output</h4>
+<div class="outline-text-4" id="text-5-2-4">
 <p>
 Often your computations produce intermediate or side results.  These
 results could be useful in some circumstances.  Therefore, it doesn't
@@ -1916,9 +2275,9 @@ required output arguments by using the <code>nargout</code> and possibly even th
 </div>
 </div>
 
-<div id="outline-container-orgheadline51" class="outline-3">
-<h3 id="orgheadline51"><span class="section-number-3">4.3</span> Documenting your code</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-orgheadline60" class="outline-3">
+<h3 id="orgheadline60"><span class="section-number-3">5.3</span> Documenting your code</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 As noted before, it is important to supply your code with appropriate
 documentation.  I distinguish between two different types of
@@ -1926,9 +2285,9 @@ documentation.
 </p>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-4">
-<h4 id="orgheadline48"><a id="ID-a0fe3eb9-b464-458d-9a7b-8d5ba7993830"></a><span class="section-number-4">4.3.1</span> Function documentation</h4>
-<div class="outline-text-4" id="text-4-3-1">
+<div id="outline-container-orgheadline57" class="outline-4">
+<h4 id="orgheadline57"><a id="ID-a0fe3eb9-b464-458d-9a7b-8d5ba7993830"></a><span class="section-number-4">5.3.1</span> Function documentation</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <p>
 If you write a function, then you should always include
 </p>
@@ -2030,9 +2389,9 @@ k = floor(fraction <span style="color: #b58900;">*</span> n);
 </div>
 </div>
 
-<div id="outline-container-orgheadline49" class="outline-4">
-<h4 id="orgheadline49"><span class="section-number-4">4.3.2</span> Local documentation</h4>
-<div class="outline-text-4" id="text-4-3-2">
+<div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58"><span class="section-number-4">5.3.2</span> Local documentation</h4>
+<div class="outline-text-4" id="text-5-3-2">
 <p>
 You add local documentation, i.e., documentation to the code itself,
 for several reasons.
@@ -2040,7 +2399,7 @@ for several reasons.
 <ul class="org-ul">
 <li>To enhance the understanding of the main flow of the code.  This is
 the type of documentation that is present in the <code>trim_data</code>
-function in section about <a href="#orgheadline48">Function documentation</a>.</li>
+function in section about <a href="#orgheadline57">Function documentation</a>.</li>
 <li>To explain details about nontrivial parts or lines of code</li>
 <li>To explain the idea behind variables</li>
 </ul>
@@ -2055,9 +2414,9 @@ and the number of different variables is usually limited.
 </div>
 </div>
 
-<div id="outline-container-orgheadline50" class="outline-4">
-<h4 id="orgheadline50"><span class="section-number-4">4.3.3</span> Programming style</h4>
-<div class="outline-text-4" id="text-4-3-3">
+<div id="outline-container-orgheadline59" class="outline-4">
+<h4 id="orgheadline59"><span class="section-number-4">5.3.3</span> Programming style</h4>
+<div class="outline-text-4" id="text-5-3-3">
 <p>
 Code documentation is supported by a good programming style.  The
 programming style gives rules/guidelines about e.g.
@@ -2079,9 +2438,9 @@ want to add to this discussion.
 </div>
 </div>
 
-<div id="outline-container-orgheadline52" class="outline-3">
-<h3 id="orgheadline52"><a id="ID-e2a20a67-a233-4209-8df3-ad1962e78658"></a><span class="section-number-3">4.4</span> Exercise: restructuring code and adding documentation</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgheadline61" class="outline-3">
+<h3 id="orgheadline61"><a id="ID-e2a20a67-a233-4209-8df3-ad1962e78658"></a><span class="section-number-3">5.4</span> Exercise: restructuring code and adding documentation</h3>
+<div class="outline-text-3" id="text-5-4">
 <p>
 In this exercise, we consider a script file that is created by copying
 the commands from the <i>Command Window</i> in a Matlab session to an
@@ -2163,368 +2522,9 @@ original experiment and plots the results nicely in one figure.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline34" class="outline-2">
-<h2 id="orgheadline34"><a id="ID-45deb06a-1b77-4d12-ae30-fb32575ea4d8"></a><span class="section-number-2">5</span> Function handles &amp; anonymous functions</h2>
-<div class="outline-text-2" id="text-5">
-</div>
-<div id="outline-container-orgheadline53" class="outline-3">
-<h3 id="orgheadline53"><span class="section-number-3">5.1</span> Introduction</h3>
-<div class="outline-text-3" id="text-5-1">
-<p>
-You should already be familiar with the concept of m-file functions,
-because it's the standard way to define a function in Matlab.  M-file
-functions allow you to divide your computations in independent pieces
-of code, which can be called whenever you like.  However, it is a bit
-annoying when you have to create a m-file function for a one line
-function definition.  Sometimes this is necessary though, for example
-when you have to define the objective function of an optimization
-problem, because the optimization tool requires this as an input.
-This is where function handles and anonymous functions are extremely
-convenient as we shall see.
-</p>
-</div>
-</div>
 
-<div id="outline-container-orgheadline54" class="outline-3">
-<h3 id="orgheadline54"><span class="section-number-3">5.2</span> Function handles</h3>
-<div class="outline-text-3" id="text-5-2">
-<p>
-A function handle is nothing more than a <i>reference</i> to another
-function.  This is a simple example how to create and use a reference
-to a built-in Matlab function.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">f = @sin;                       <span style="color: #586e75; font-style: italic;">% reference to the sin function</span>
-x = f(<span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</span>(0<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>2))             <span style="color: #586e75; font-style: italic;">% evaluate sin through the function handle f</span>
-</pre>
-</div>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">x =
-
-         0    1.0000    0.0000   -1.0000   -0.0000
-</pre>
-</div>
-
-<p>
-This also works for multiple input and output arguments.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">g = @min;
-A = [1 2
-     4 3];
-[x,i] = g(A,[],2)               <span style="color: #586e75; font-style: italic;">% find row minimum (traverse along 2nd dimension)</span>
-</pre>
-</div>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">x =
-
-     1
-     3
-
-
-i =
-
-     1
-     2
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline55" class="outline-3">
-<h3 id="orgheadline55"><span class="section-number-3">5.3</span> Anonymous functions</h3>
-<div class="outline-text-3" id="text-5-3">
-<p>
-An <a href="http://www.mathworks.nl/help/matlab/matlab_prog/anonymous-functions.html">anonymous function</a> is a special type of function handle to a
-function for which no m-file function exists.  You can see it as an
-alternative to inline functions.  Actually, anonymous functions are
-much more flexible and faster than inline functions, so use anonymous
-functions from now on.
-</p>
-
-<p>
-Here is a simple example of an anonymous function:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">f = @(x) poisspdf(x, 5)
-</pre>
-</div>
-<p>
-This statement defines a function handle <code>f</code> to a function of one
-variable <code>x</code>, which is defined by <code>poisspdf(x,5)</code>.  Hence, <code>f(2)</code>
-would return the same output as <code>poisspdf(2,5)</code>, which is the
-probability that a Poisson distributed random variable with mean 5 is
-equal to 2.  Note that the variable <code>x</code>, which is used in the
-definition of the anonymous function has no effect on a variable with
-the same name in the current workspace.
-</p>
-
-<p>
-We can also define functions with multiple input arguments and use
-variables from the workspace in the definition.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">a = 1;
-c = 2;
-f = @(x,a) a<span style="color: #b58900;">.*</span>(x<span style="color: #b58900;">-</span>c)<span style="color: #b58900;">.^</span>2;
-</pre>
-</div>
-<p>
-Note that we are using element-wise arithmetic operators in the
-definition.  This allows us to call the function with non-scalar
-inputs (as long as they match in size of course).  Another important
-thing to remember is that changing the value of <code>c</code> has no effect on
-the definition of <code>f</code>: only the value of <code>c</code> at the time of the
-definition is relevant!  On the other hand, the value of <code>a</code> in the
-workspace has no effect at all on the function <code>f</code> where <code>a</code> is only
-used as a (temporary) reference to the second input argument of <code>f</code>.
-These notions explain the results of the following commands.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">t = [4 4 5 5];
-b = [1 2 1 2];
-y = f(t,b);
-a = 100;
-c = 100;
-y = [y; f(t,b)]
-</pre>
-</div>
-<p>
-Changing the variables <code>a</code> and <code>c</code> has no effect on the output as you
-can see:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">y =
-
-     4     8     9    18
-     4     8     9    18
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline56" class="outline-3">
-<h3 id="orgheadline56"><span class="section-number-3">5.4</span> Illustrative example</h3>
-<div class="outline-text-3" id="text-5-4">
-<p>
-Now that we have seen how to define anonymous functions, let's have a
-look at some examples where anonymous functions are very useful.  We
-can use them
-</p>
-<ul class="org-ul">
-<li>to pass a function to another function,</li>
-<li>to capture data values for later use by a function,</li>
-<li>to call functions outside of their normal scope.</li>
-</ul>
-
-<p>
-A useful Matlab function is the <code>fzero</code> function, which you can use
-to find the zero location of a function of a scalar variable.  For
-instance:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">&gt;&gt; fzero(@log, 2)
-
-ans =
-
-    1
-</pre>
-</div>
-<p>
-<code>@log</code> is a function handle of the function for which we want to find
-the root and the second argument is an initial guess of the
-location of the root.
-</p>
-
-<p>
-Often, you don't want to find the location where a function is equal
-to zero, but the location where it is equal to a certain value <code>c</code>,
-which is not necessarily equal to zero.  What to do if we want to find
-the location where the gamma function is equal to 10?  Without
-anonymous functions, we would have to define an m-file function that,
-for a given input <code>x</code>, returns <code>gamma(x)-10</code>, and use that function as
-the input for <code>fzero</code>.  We would have to repeat this procedure for
-other targets than <code>10</code>.  Of course, we can easily define a function
-with a second input argument that represents the target, but <code>fzero</code>
-requires a function with only one input variable.
-</p>
-
-<p>
-This problem is easily solved with anonymous functions:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">f = @(x) gamma(x)<span style="color: #b58900;">-</span>10;
-x = fzero(f, 2)
-</pre>
-</div>
-<p>
-We can even do it in one line:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">x = fzero(@(x) gamma(x)<span style="color: #b58900;">-</span>10, 2)
-</pre>
-</div>
-
-<p>
-We can take this idea even one step further by defining a function
-that generalizes the <code>fzero</code> function to include an input variable
-that represents the target.  Consider the m-file function
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">x</span> = <span style="color: #268bd2;">ftarget</span>(<span style="color: #268bd2;">f</span>, <span style="color: #268bd2;">target</span>, <span style="color: #268bd2;">x0</span>)
-
-g = @(x)(f(x) <span style="color: #b58900;">-</span> target);
-x = fzero(g, x0);
-</pre>
-</div>
-<p>
-Now we can do
-</p>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">&gt;&gt; [ftarget(@log, 1, 2), ftarget(@gamma, 120, 3), ftarget(@normcdf, 0.975, 3)]
-
-ans =
-
-    2.7183    6.0000    1.9600
-</pre>
-</div>
-<p>
-Note that we could have obtained the same results from the following
-anonymous function instead of the m-file function above.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">ftarget = @(fun, target, x0) fzero(@(x) fun(x)<span style="color: #b58900;">-</span>target, x0)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline61" class="outline-3">
-<h3 id="orgheadline61"><span class="section-number-3">5.5</span> Exercises</h3>
-<div class="outline-text-3" id="text-5-5">
-</div><div id="outline-container-orgheadline57" class="outline-4">
-<h4 id="orgheadline57"><a id="ID-6cb3074d-f8f9-4abf-82ae-3f33c1e0adb4"></a><span class="section-number-4">5.5.1</span> Piecewise function</h4>
-<div class="outline-text-4" id="text-5-5-1">
-<p>
-Define the following function as an anonymous function.  Make sure
-that the function allows non-scalar input.  Note that you can't use
-<code>if</code> statements or loops in the definition of an anonymous function.
-</p>
-\begin{equation*}
-f(x) = \begin{cases}
-x+1 & \mathrm{if\ } x \leq 1\\
-x+3 & \mathrm{if\ } 1 < x \leq 2 \\
-7-x^2/2 & \mathrm{if\ } x > 2
-\end{cases}
-\end{equation*}
-
-<p>
-Plot the function using <code>fplot</code>.
-</p>
-</div>
-</div>
-<div id="outline-container-orgheadline58" class="outline-4">
-<h4 id="orgheadline58"><a id="ID-4355d7d3-abc5-4437-bcc6-a2368c26e350"></a><span class="section-number-4">5.5.2</span> Expected value</h4>
-<div class="outline-text-4" id="text-5-5-2">
-<p>
-Let \(X\) be a gamma distributed random variable with shape parameter 5
-and scale parameter 2.  Write an anonymous function <code>Efx</code> that returns
-\(E[f(X)]\) for a function \(f(.)\).  For instance, \(E[\log(X)]\) can be
-calculated by <code>Efx(@log)</code>.  You'll need to find a (built-in) function
-you can use to evaluate an integral.  Use your version of <code>Efx</code> to
-calculate
-</p>
-<ol class="org-ol">
-<li>\(E[\log(X)]\)</li>
-<li>\(E[1/X]\)</li>
-<li>\(E[\cos(X)]\)</li>
-<li>\(E[(X-10)^2]\) Note that this should return the variance of \(X\): 20.</li>
-</ol>
-</div>
-</div>
-<div id="outline-container-orgheadline60" class="outline-4">
-<h4 id="orgheadline60"><a id="ID-739fd4a2-abd2-4ad5-b5e6-8a2847b66922"></a><span class="section-number-4">5.5.3</span> Solving nonlinear equations</h4>
-<div class="outline-text-4" id="text-5-5-3">
-<p>
-In this exercise we will try to solve a system of <i>nonlinear</i>
-equations.  Note that we will discuss <i>linear</i> equations in the
-section about <a href="#orgheadline59">Linear algebra</a>.
-</p>
-
-<p>
-Make an anonymous function for \(f:\mathbb{R}^n \rightarrow \mathbb{R}^n\) with \(n\) an
-even natural number and
-</p>
-\begin{equation*}
-f(x) = \begin{bmatrix} g(x) \\ h(x) \end{bmatrix},
-\end{equation*}
-<p>
-with
-</p>
-\begin{equation*}
-g_i(x) = 1 - x_{2i-1}, \qquad i=1,\dots,n/2
-\end{equation*}
-<p>
-and
-</p>
-\begin{equation*}
-h_i(x) = 10(x_{2i-1}-x_{2i})^2, \qquad i=1,\dots,n/2
-\end{equation*}
-<p>
-Note that it is not too difficult to do this without having to define
-the functions \(g(.)\) and \(h(.)\) first.  For instance, the function
-\(g(.)\) is easily defined by <code>1-x(1:2:end-1)</code>.  Moreover, you can write
-a single anonymous function that works for all (even) \(n\).
-</p>
-
-<p>
-We are interested in solving the nonlinear system of equations
-\(f(x)=0\), which has \(n\) equations and \(n\) unknowns.  It can easily be
-verified that the n-dimensional all-one vector is a solution for this
-problem.
-</p>
-
-<p>
-Now try to find this solution numerically using the <code>fsolve</code> function.
-Read the documentation about how to use this function.  Pick a random
-initial guess&#x2014;i.e., generate it using a random number generator&#x2014;and
-make sure to have the function display some output so that you can
-check the number of function evaluations.
-</p>
-
-<p>
-Now do the same, but also provide <code>fsolve</code> with the Jacobian (first
-derivative) of \(f(.)\).  You cannot use an anonymous function for that.
-This time you have to write a m-file function to compute the function
-\(f\) (first output argument) and its Jacobian (second output argument).
-</p>
-
-<p>
-If you run the algorithm again, then you should see that the number of
-function evaluations is much smaller than in the case without the
-Jacobian.
-</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgheadline59" class="outline-2">
-<h2 id="orgheadline59"><a id="ID-c9cf9668-e37b-4e68-a2c5-d7433aacaf80"></a><span class="section-number-2">6</span> Linear algebra</h2>
+<div id="outline-container-orgheadline48" class="outline-2">
+<h2 id="orgheadline48"><a id="ID-c9cf9668-e37b-4e68-a2c5-d7433aacaf80"></a><span class="section-number-2">6</span> Linear algebra</h2>
 <div class="outline-text-2" id="text-6">
 </div>
 
@@ -3092,7 +3092,7 @@ We distinguish the following functional forms for the function \(F\).
 
 <p>
 The first case simply corresponds the the standard linear regression
-problem, which we discussed in the section about <a href="#orgheadline59">Linear algebra</a>.  The
+problem, which we discussed in the section about <a href="#orgheadline48">Linear algebra</a>.  The
 second and third type are extensions to this problem where we put a
 simple nonnegativity restriction on \(x\) or general linear constraints.
 The last two types correspond to cases where the objective is
@@ -3779,7 +3779,7 @@ the \(\Phi\) matrix.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ruud Brekelmans</p>
-<p class="date">Created: 2016-08-17 Wed 12:57</p>
+<p class="date">Created: 2016-08-30 Tue 10:08</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.4)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
