@@ -2,12 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-08-30 Tue 10:08 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Computational Aspects of Econometrics and OR: MATLAB</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Ruud Brekelmans" />
+<!-- 2017-08-23 Wed 11:21 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Computational Aspects in Econometrics: MATLAB</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Ruud Brekelmans" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -52,13 +52,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -91,6 +175,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="cae.css" />
@@ -99,7 +184,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -161,33 +246,34 @@ for the JavaScript code in this tag.
 });
 </script>
 <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">Computational Aspects of Econometrics and OR: MATLAB</h1>
+<h1 class="title">Computational Aspects in Econometrics: MATLAB</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline13">1. Overview Matlab part of the course</a></li>
-<li><a href="#orgheadline33">2. Efficient coding</a></li>
-<li><a href="#orgheadline41">3. Cell and structure arrays</a></li>
-<li><a href="#orgheadline34">4. Function handles &amp; anonymous functions</a></li>
-<li><a href="#orgheadline11">5. Generic programming &amp; good documentation</a></li>
-<li><a href="#orgheadline48">6. Linear algebra</a></li>
-<li><a href="#orgheadline68">7. Graphics</a></li>
-<li><a href="#orgheadline75">8. Regression</a></li>
-<li><a href="#orgheadline81">9. Interpolation</a></li>
+<li><a href="#orgd542d41">1. Overview Matlab part of the course</a></li>
+<li><a href="#org5024a7f">2. Quick refresher</a></li>
+<li><a href="#orgc4873cb">3. Efficient coding</a></li>
+<li><a href="#org7a1123b">4. Cell and structure arrays</a></li>
+<li><a href="#orgd5eedea">5. Function handles &amp; anonymous functions</a></li>
+<li><a href="#org38b7dda">6. Generic programming &amp; good documentation</a></li>
+<li><a href="#orge3cb9dd">7. Linear algebra</a></li>
+<li><a href="#org1af84cc">8. Graphics</a></li>
+<li><a href="#org010d2f1">9. Regression</a></li>
+<li><a href="#org6d5aa4c">10. Interpolation</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13"><a id="ID-9c6045b7-3dcd-44f3-8e11-6913a5afaa05"></a><span class="section-number-2">1</span> Overview Matlab part of the course</h2>
+<div id="outline-container-orgd542d41" class="outline-2">
+<h2 id="orgd542d41"><a id="ID-9c6045b7-3dcd-44f3-8e11-6913a5afaa05"></a><span class="section-number-2">1</span> Overview Matlab part of the course</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This document belongs to the course <i>Computational Aspects in
-Econometrics and OR</i>, and specifically the Matlab part of the course.
+Econometrics</i>, and specifically the Matlab part of the course.
 For more information about the course see Blackboard.
 </p>
 
@@ -197,8 +283,8 @@ to install Matlab on your PC/laptop.  For instructions, see <a href="https://www
 </p>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Prerequisites</h3>
+<div id="outline-container-org9145e46" class="outline-3">
+<h3 id="org9145e46"><span class="section-number-3">1.1</span> Prerequisites</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 I expect that you are familiar with the Matlab basics:
@@ -243,13 +329,13 @@ Version, 4th Edition</a></li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><a id="ID-9ffb2964-377a-457b-aeb2-518fef190145"></a><span class="section-number-3">1.2</span> Learning goals</h3>
+<div id="outline-container-org2d929bb" class="outline-3">
+<h3 id="org2d929bb"><a id="ID-9ffb2964-377a-457b-aeb2-518fef190145"></a><span class="section-number-3">1.2</span> Learning goals</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2"><span class="section-number-4">1.2.1</span> Know &#x2026; (theory: by heart, also on paper)</h4>
+<div id="outline-container-orgce6e418" class="outline-4">
+<h4 id="orgce6e418"><span class="section-number-4">1.2.1</span> Know &#x2026; (theory: by heart, also on paper)</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <ul class="org-ul">
 <li>how to apply the Matlab basics (see prerequisites)</li>
@@ -263,10 +349,10 @@ using functions such as <code>find</code>, <code>reshape</code>, <code>permute</
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5"><span class="section-number-4">1.2.2</span> Be able to use some advanced Matlab tools and techniques in practice (assignment)</h4>
+<div id="outline-container-org20e3417" class="outline-4">
+<h4 id="org20e3417"><span class="section-number-4">1.2.2</span> Be able to use some advanced Matlab tools and techniques in practice (assignment)</h4>
 <div class="outline-text-4" id="text-1-2-2">
-</div><ol class="org-ol"><li><a id="orgheadline3"></a>Matlab tools<br  /><div class="outline-text-5" id="text-1-2-2-1">
+</div><ol class="org-ol"><li><a id="org2f613d4"></a>Matlab tools<br /><div class="outline-text-5" id="text-1-2-2-1">
 <ul class="org-ul">
 <li>cell and structure arrays</li>
 <li>anonymous functions</li>
@@ -280,7 +366,7 @@ etc.)</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline4"></a>Techniques<br  /><div class="outline-text-5" id="text-1-2-2-2">
+<li><a id="orgf4298d6"></a>Techniques<br /><div class="outline-text-5" id="text-1-2-2-2">
 <ul class="org-ul">
 <li>use the help function to <i>search for</i> built-in functionality and
 <i>use it</i> (I deliberately give exercises during class and in the
@@ -296,8 +382,8 @@ them</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">1.3</span> Assignment</h3>
+<div id="outline-container-org74b2864" class="outline-3">
+<h3 id="org74b2864"><span class="section-number-3">1.3</span> Assignment</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 The assignment will be announced on Blackboard.
@@ -323,17 +409,17 @@ program.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">1.4</span> Exam</h3>
+<div id="outline-container-org6399058" class="outline-3">
+<h3 id="org6399058"><span class="section-number-3">1.4</span> Exam</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
-See <a href="#orgheadline6">Learning goals</a> (the "<i>know</i>" part)
+See <a href="#org2d929bb">Learning goals</a> (the "<i>know</i>" part)
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">1.5</span> Course material</h3>
+<div id="outline-container-orga838be7" class="outline-3">
+<h3 id="orga838be7"><span class="section-number-3">1.5</span> Course material</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Online document&#x2014;the document you are reading now&#x2014;containing several
@@ -357,8 +443,8 @@ definition for which you'll need to create a m-file.
 </p>
 </div>
 </div>
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">1.6</span> Course setup</h3>
+<div id="outline-container-org00867ed" class="outline-3">
+<h3 id="org00867ed"><span class="section-number-3">1.6</span> Course setup</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 The Matlab classes have the following setup.
@@ -389,8 +475,8 @@ the <i>Discussion board</i> on Blackboard.
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">1.7</span> How to make the exercises?</h3>
+<div id="outline-container-org3c13fe6" class="outline-3">
+<h3 id="org3c13fe6"><span class="section-number-3">1.7</span> How to make the exercises?</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 This section gives you a few general tips about how to make the
@@ -423,10 +509,11 @@ of code.
 <p>
 It is obvious that this gives you a lot of flexibility, but can also
 lead to unstructured results, which may be difficult to replicate as
-well.  Methods 3, 4, and 5 are okay for developing small pieces of
+well. Methods 3, 4, and 5 are okay for developing small pieces of
 code, but if you use them too much, you will get confused, and so will
-anybody that wants to help you.  So, you should always save the entire
-solution to a problem in a script or function m-file.
+anybody that wants to help you (this could be yours truly). So, try to
+prevent methods 3, 4, and 5, and always save the entire solution to a
+problem in a script or function m-file.
 </p>
 
 <p>
@@ -455,26 +542,486 @@ problem data in a more flexible way.</li>
 accompanying script file testing the function, or calling the
 function in such a way that it produces the results you want.</li>
 
-<li>If you came up with clever idea, and want to be sure that you recall
-how it works tomorrow, then add comments to your code.</li>
+<li>If you came up with clever idea, and want to be sure that you still
+recall how it works tomorrow, then add comments to your code.</li>
 </ul>
 
 <p>
-Later, in <a href="#orgheadline11">this</a> section you will get some more information about
+Later, in <a href="#org38b7dda">this</a> section you will get some more information about
 structuring and documenting your code.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline33" class="outline-2">
-<h2 id="orgheadline33"><a id="ID-5b0ce348-c4ea-4b2f-916e-93b4b5d5d677"></a><span class="section-number-2">2</span> Efficient coding</h2>
+<div id="outline-container-org5024a7f" class="outline-2">
+<h2 id="org5024a7f"><span class="section-number-2">2</span> Quick refresher</h2>
 <div class="outline-text-2" id="text-2">
+<p>
+This section is a contains a quick refresher of some basic Matlab
+stuff. Hopefully, you'll have little problems understanding everything
+here. Most material is presented by examples.
+</p>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">2.1</span> Introduction</h3>
+<div id="outline-container-orgf15c6db" class="outline-3">
+<h3 id="orgf15c6db"><span class="section-number-3">2.1</span> Simple creation of arrays:</h3>
 <div class="outline-text-3" id="text-2-1">
+<p>
+Rows are separated by semicolons, and columns by commas.
+</p>
+<pre class="example">
+&gt;&gt; A = [1, 2, 3; 4, 5, 6; 7, 8, 9]
+
+A =
+
+     1     2     3
+     4     5     6
+     7     8     9
+
+&gt;&gt; b = [0; 1; 0]
+
+b =
+
+     0
+     1
+     0
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org1431975" class="outline-3">
+<h3 id="org1431975"><span class="section-number-3">2.2</span> Information about sizes and dimensions:</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example">
+&gt;&gt; size(A)
+
+ans =
+
+     3     3
+
+&gt;&gt; ndims(A)
+
+ans =
+
+     2
+
+&gt;&gt; size(b)
+
+ans =
+
+     3     1
+
+&gt;&gt; length(b)
+
+ans =
+
+     3
+
+&gt;&gt; ndims(b)
+
+ans =
+
+     2
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org61d86e3" class="outline-3">
+<h3 id="org61d86e3"><span class="section-number-3">2.3</span> Combine variables with right dimensions:</h3>
+<div class="outline-text-3" id="text-2-3">
+<pre class="example">
+&gt;&gt; [A, b]
+
+ans =
+
+     1     2     3     0
+     4     5     6     1
+     7     8     9     0
+
+&gt;&gt; [A; b]
+Error using vertcat
+Dimensions of matrices being concatenated are not consistent.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org8d2069a" class="outline-3">
+<h3 id="org8d2069a"><span class="section-number-3">2.4</span> Colon operator:</h3>
+<div class="outline-text-3" id="text-2-4">
+<pre class="example">
+&gt;&gt; 0:8
+
+ans =
+
+     0     1     2     3     4     5     6     7     8
+
+&gt;&gt; 0:2:10
+
+ans =
+
+     0     2     4     6     8    10
+
+&gt;&gt; -2:0.5:2
+
+ans =
+
+   -2.0000   -1.5000   -1.0000   -0.5000         0    0.5000    1.0000    1.5000    2.0000
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbc910c5" class="outline-3">
+<h3 id="orgbc910c5"><span class="section-number-3">2.5</span> Referencing elements:</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Note that <code>end</code> can be used to refer to the last element of a certain
+dimension.
+</p>
+<pre class="example">
+&gt;&gt; A(2,3)
+
+ans =
+
+     6
+
+&gt;&gt; b(2)
+
+ans =
+
+     1
+
+&gt;&gt; b([1 3])
+
+ans =
+
+     0
+     0
+
+&gt;&gt; A(1:2, [1 3])    % submatrix
+
+ans =
+
+     1     3
+     4     6
+
+&gt;&gt; A(1,2:end)
+
+ans =
+
+     2     3
+
+&gt;&gt; A(:, 2)    % select all (rows)
+
+ans =
+
+     2
+     5
+     8
+
+&gt;&gt; b(:, [1 1 1 1])   % replicate 1st column 4 times
+
+ans =
+
+     0     0     0     0
+     1     1     1     1
+     0     0     0     0
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc023847" class="outline-3">
+<h3 id="orgc023847"><span class="section-number-3">2.6</span> Matrix operations</h3>
+<div class="outline-text-3" id="text-2-6">
+<pre class="example">
+&gt;&gt; A + A
+
+ans =
+
+     2     4     6
+     8    10    12
+    14    16    18
+
+&gt;&gt; 3*A - 10
+
+ans =
+
+    -7    -4    -1
+     2     5     8
+    11    14    17
+
+&gt;&gt; A*b
+
+ans =
+
+     2
+     5
+     8
+
+&gt;&gt; A'       % transpose
+
+ans =
+
+     1     4     7
+     2     5     8
+     3     6     9
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org52e695a" class="outline-3">
+<h3 id="org52e695a"><span class="section-number-3">2.7</span> Element-wise operations</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+These are a great tool to prevent the use of loops.
+</p>
+<pre class="example">
+&gt;&gt; 1./A
+
+ans =
+
+    1.0000    0.5000    0.3333
+    0.2500    0.2000    0.1667
+    0.1429    0.1250    0.1111
+
+&gt;&gt; A.^2
+
+ans =
+
+     1     4     9
+    16    25    36
+    49    64    81
+
+&gt;&gt; A.*A
+
+ans =
+
+     1     4     9
+    16    25    36
+    49    64    81
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org1239f2e" class="outline-3">
+<h3 id="org1239f2e"><span class="section-number-3">2.8</span> Logical operations</h3>
+<div class="outline-text-3" id="text-2-8">
+<pre class="example">
+&gt;&gt; x = 1:10
+
+x =
+
+     1     2     3     4     5     6     7     8     9    10
+
+&gt;&gt; x &gt; 5
+
+ans =
+
+  1×10 logical array
+
+   0   0   0   0   0   1   1   1   1   1
+
+&gt;&gt; x &gt; 2 &amp; x &lt; 7   % logical AND
+
+ans =
+
+  1×10 logical array
+
+   0   0   1   1   1   1   0   0   0   0
+
+&gt;&gt; x &gt;= 2 &amp; x &lt;= 7
+
+ans =
+
+  1×10 logical array
+
+   0   1   1   1   1   1   1   0   0   0
+
+&gt;&gt; x &lt;= 2 | x &gt;= 8   % logical OR
+
+ans =
+
+  1×10 logical array
+
+   1   1   0   0   0   0   0   1   1   1
+
+&gt;&gt; ~ans      % logical NOT
+
+ans =
+
+  1×10 logical array
+
+   0   0   1   1   1   1   1   0   0   0
+</pre>
+
+<p>
+Short-circuit tests (<code>&amp;&amp;</code> and =||+) prevent the evaluation of the
+second part if the value of the first already determines the outcome:
+</p>
+<pre class="example">
+&gt;&gt; x = 1:2
+
+x =
+
+     1     2
+
+&gt;&gt; (length(x) &gt; 2) &amp; (x(3) &gt; 0)
+Index exceeds matrix dimensions.
+ 
+&gt;&gt; (length(x) &gt; 2) &amp;&amp; (x(3) &gt; 0)
+
+ans =
+
+  logical
+
+   0
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org2f542bc" class="outline-3">
+<h3 id="org2f542bc"><span class="section-number-3">2.9</span> If/else</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+<pre class="src src-matlab"><span style="color: #859900;">if</span> isinf(x) <span style="color: #b58900;">|</span> &#732;isreal(x)
+    disp(&#8217;Bad input<span style="color: #b58900;">!</span>&#8217;)
+    y = <span style="color: #2aa198;">NaN</span>;
+<span style="color: #859900;">elseif</span> (x <span style="color: #b58900;">==</span> round(x)) <span style="color: #b58900;">&amp;&amp;</span> (x <span style="color: #b58900;">&gt;</span> 0)
+    y = prod(1<span style="color: #b58900;">:</span>x<span style="color: #b58900;">-</span>1);
+<span style="color: #859900;">else</span>
+    y = gamma(x);
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga9a36ab" class="outline-3">
+<h3 id="orga9a36ab"><span class="section-number-3">2.10</span> For loop</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+<pre class="src src-matlab">f = [1, 1];
+<span style="color: #859900;">for</span> <span style="color: #268bd2;">n</span> = <span style="color: #2aa198;">3:10</span>
+    f(n) = f(n<span style="color: #b58900;">-</span>1) <span style="color: #b58900;">+</span> f(n<span style="color: #b58900;">-</span>2);
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge4c2cf6" class="outline-3">
+<h3 id="orge4c2cf6"><span class="section-number-3">2.11</span> While loop</h3>
+<div class="outline-text-3" id="text-2-11">
+<div class="org-src-container">
+<pre class="src src-matlab">n = 0;
+<span style="color: #859900;">while</span> x <span style="color: #b58900;">&gt;</span> 1
+    x = x<span style="color: #b58900;">/</span>2;
+    n = n<span style="color: #b58900;">+</span>1;
+    <span style="color: #859900;">if</span> n <span style="color: #b58900;">&gt;</span> 50, <span style="color: #859900;">break</span>, <span style="color: #859900;">end</span>       <span style="color: #93a1a1; font-style: italic;">% break out of loop</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2bf3f0a" class="outline-3">
+<h3 id="org2bf3f0a"><span class="section-number-3">2.12</span> Script and function m-files</h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+A script file is simply a collection of matlab statements. By calling
+the script Matlab executes the statements as if you would have typed
+them on the command line.  Suppose we save the following code in a
+file called <code>script1.m</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-matlab"><span style="color: #93a1a1; font-style: italic;">% It is often a good idea to start your script with a CLEAR statement,</span>
+<span style="color: #93a1a1; font-style: italic;">% which clears the workspace.</span>
+clear
+
+<span style="color: #93a1a1; font-style: italic;">% Initialize parameters</span>
+n = 10000;
+m = [10; 50; 100; 500; 1000; 5000; 10000];
+
+<span style="color: #93a1a1; font-style: italic;">% Put random number generator in default state for reproducibility</span>
+rng(<span style="color: #2aa198;">'default'</span>)
+
+<span style="color: #93a1a1; font-style: italic;">% Get random sample of standard normal distribution</span>
+x = randn(n, 1);
+
+<span style="color: #859900;">for</span> <span style="color: #268bd2;">i</span> = <span style="color: #2aa198;">1:length(m)</span>
+
+    <span style="color: #93a1a1; font-style: italic;">% Calculate 95% confidence interval for certain sample size</span>
+    y = x(1<span style="color: #b58900;">:</span>m(i));
+    mu = mean(y);
+    sigma = std(y);
+    ci = mu <span style="color: #b58900;">+</span> norminv(0.975) <span style="color: #b58900;">*</span> sigma <span style="color: #b58900;">/</span> sqrt(m(i)) <span style="color: #b58900;">*</span> [<span style="color: #b58900;">-</span>1, 1];
+
+    <span style="color: #93a1a1; font-style: italic;">% Print result</span>
+    fprintf(<span style="color: #2aa198;">'n = %5d: [%8.4f, %8.4f]\n'</span>, m(i), ci);
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+<p>
+Now we can call this script from the command line.
+</p>
+<pre class="example">
+&gt;&gt; script1
+n =    10: [ -0.4727,   1.7212]
+n =    50: [ -0.0659,   0.6340]
+n =   100: [ -0.1047,   0.3509]
+n =   500: [ -0.1099,   0.0661]
+n =  1000: [ -0.0945,   0.0293]
+n =  5000: [ -0.0075,   0.0477]
+n = 10000: [ -0.0178,   0.0211]
+</pre>
+
+<p>
+On the other hand, a function m-file has input and output arguments
+and has a <i>local workspace</i>. Any arguments or other variables created
+while the function executes are available only within the function.
+Conversely, the variables available to the command line (the so-called
+base workspace) are normally not visible to the function.
+</p>
+<div class="org-src-container">
+<pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">[x1, x2]</span> = <span style="color: #268bd2;">quadform</span>(<span style="color: #268bd2;">a</span>, <span style="color: #268bd2;">b</span>, <span style="color: #268bd2;">c</span>)
+<span style="color: #93a1a1; font-style: italic;">%QUADFORM Return two zeros of quadratic form a*x^2 + b*x + c</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% [x1, x2] = quadform(a, b, c)</span>
+
+d = sqrt(b<span style="color: #b58900;">^</span>2 <span style="color: #b58900;">-</span> 4<span style="color: #b58900;">*</span>a<span style="color: #b58900;">*</span>c);
+x1 = (<span style="color: #b58900;">-</span>b <span style="color: #b58900;">+</span> d) <span style="color: #b58900;">/</span> (2<span style="color: #b58900;">*</span>a);
+x2 = (<span style="color: #b58900;">-</span>b <span style="color: #b58900;">-</span> d) <span style="color: #b58900;">/</span> (2<span style="color: #b58900;">*</span>a);
+</pre>
+</div>
+<p>
+Functions can be called from the command line or from within other
+functions.
+</p>
+<pre class="example">
+&gt;&gt; [r1, r2] = quadform(1, -3, 2)
+
+r1 =
+
+     2
+
+
+r2 =
+
+     1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc4873cb" class="outline-2">
+<h2 id="orgc4873cb"><a id="ID-5b0ce348-c4ea-4b2f-916e-93b4b5d5d677"></a><span class="section-number-2">3</span> Efficient coding</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+
+<div id="outline-container-orgb7fa7e6" class="outline-3">
+<h3 id="orgb7fa7e6"><span class="section-number-3">3.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 One of the most important things that I want you to take away from
 this course is that you'll produce efficient Matlab code.  By this I
@@ -494,7 +1041,6 @@ by 2.  The straightforward approach, used in many other programming
 languages, would be the following:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">[m,n] = size(A);
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">i</span>=<span style="color: #2aa198;">1:m</span>
   <span style="color: #859900;">for</span> <span style="color: #268bd2;">j</span>=<span style="color: #2aa198;">1:n</span>
@@ -515,7 +1061,6 @@ would be nice if you pick up the habit of automatically coding such
 as problem as follows:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">i = A<span style="color: #b58900;">&gt;</span>0.5;
 A(i) = A(i)<span style="color: #b58900;">/</span>2;
 </pre>
@@ -532,16 +1077,16 @@ The continuous awareness that you should try to develop is "<i>How can I
 </p>
 
 <p>
-In this block we will look at tools and techniques that you can use to
+In this block, we will look at tools and techniques that you can use to
 make your Matlab code more efficient and in particular to prevent
 loops.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15"><span class="section-number-3">2.2</span> Preallocation</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgb86b414" class="outline-3">
+<h3 id="orgb86b414"><span class="section-number-3">3.2</span> Preallocation</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 If you are going to use loops anyway, then make sure that you
 preallocate memory for output arrays.  Adding new elements/rows
@@ -549,18 +1094,17 @@ etc. to an existing array is <i>very</i> time consuming.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-matlab">N = 1e6;
 
 <span style="color: #859900;">tic</span>
 x = 0;
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">k</span> = <span style="color: #2aa198;">2:N</span>
-   x(k) = x(k<span style="color: #b58900;">-</span>1) <span style="color: #b58900;">+</span> 5;           <span style="color: #586e75; font-style: italic;">% expand the existing array</span>
+   x(k) = x(k<span style="color: #b58900;">-</span>1) <span style="color: #b58900;">+</span> 5;           <span style="color: #93a1a1; font-style: italic;">% expand the existing array</span>
 <span style="color: #859900;">end</span>
 bad = <span style="color: #859900;">toc</span>
 
 <span style="color: #859900;">tic</span>
-y = zeros(1, N);                <span style="color: #586e75; font-style: italic;">% preallocate the output</span>
+y = zeros(1, N);                <span style="color: #93a1a1; font-style: italic;">% preallocate the output</span>
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">k</span> = <span style="color: #2aa198;">2:N</span>
    y(k) = y(k<span style="color: #b58900;">-</span>1) <span style="color: #b58900;">+</span> 5;
 <span style="color: #859900;">end</span>
@@ -571,7 +1115,6 @@ good = <span style="color: #859900;">toc</span>
 Output
 </p>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">bad =
 
     0.2769
@@ -590,9 +1133,9 @@ between the two statements.
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">2.3</span> Element-wise Arithmetic</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-orgc206a41" class="outline-3">
+<h3 id="orgc206a41"><span class="section-number-3">3.3</span> Element-wise Arithmetic</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 Try to operate on multi-dimensional arrays as much as possible.  Basic
 mathematical functions such as <code>sin</code>, <code>exp</code>, <code>log</code> can be applied to
@@ -602,7 +1145,6 @@ that operate on arrays of the same dimension (or scalars).  For
 instance:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">A = A<span style="color: #b58900;">./</span>B;
 B = B<span style="color: #b58900;">.^</span>2;
 </pre>
@@ -616,9 +1158,9 @@ with itself.
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17"><a id="ID-632b9f97-43db-435d-aa22-b327f35aa589"></a><span class="section-number-3">2.4</span> Useful functions</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgdc2786d" class="outline-3">
+<h3 id="orgdc2786d"><a id="ID-632b9f97-43db-435d-aa22-b327f35aa589"></a><span class="section-number-3">3.4</span> Useful functions</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 There is quite a number of built-in functions that prevent the usage
 of loops.  Here is a list with a short description and/or example.
@@ -632,7 +1174,6 @@ which can often be very useful.
 columns, of the matrix <code>A</code>.  For example:</dd>
 </dl>
 <div class="org-src-container">
-
 <pre class="src src-matlab">A = reshape(1<span style="color: #b58900;">:</span>24, 4, 6)
 a1 = sum(A, 1)
 a2 = sum(A, 2)
@@ -666,7 +1207,7 @@ a2 =
 <dl class="org-dl">
 <dt>mean,std,var</dt><dd>calculate the mean along a particular dimension of
 an array.  For the <code>std</code> and <code>var</code> functions, the
-third input argument refers to the dimenion&#x2014;and
+third input argument refers to the dimension&#x2014;and
 the second denotes wheter you want the population
 (1) or sample (0/default) standard deviation or
 variance.</dd>
@@ -676,7 +1217,6 @@ input argument).  Indices of min/max-locations are
 returned in the second output argument.</dd>
 </dl>
 <div class="org-src-container">
-
 <pre class="src src-matlab">A = rand(4, 6)
 [m1, i1] = min(A, [], 1)
 [m2, i2] = min(A, [], 2)
@@ -732,7 +1272,6 @@ combination with logical tests: <code>i = find(A&gt;1 &amp; A&lt;2)</code></dd>
 dimension of an array are (is) nonzero.</dd>
 </dl>
 <div class="org-src-container">
-
 <pre class="src src-matlab">A = [1 1 1
      0 1 0
      0 0 0];
@@ -767,10 +1306,9 @@ function, but very useful, is locating the positions in a
 vector where the value changes.</dd>
 </dl>
 <div class="org-src-container">
-
 <pre class="src src-matlab">x = [10 10 10 20 20 20 20 30 30 40 40 40]
 d = diff(x)
-i = [find(d), length(x)]        <span style="color: #586e75; font-style: italic;">% always include the last entry</span>
+i = [find(d), length(x)]        <span style="color: #93a1a1; font-style: italic;">% always include the last entry</span>
 y = x(i)
 </pre>
 </div>
@@ -795,11 +1333,11 @@ y =
 </div>
 </div>
 
-<div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">2.5</span> Logical indexing</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-orgae9f724" class="outline-3">
+<h3 id="orgae9f724"><span class="section-number-3">3.5</span> Logical indexing</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
-In the introductory <a href="#orgheadline14">example</a>, we have already seen the use of <b>logical
+In the introductory <a href="#orgb7fa7e6">example</a>, we have already seen the use of <b>logical
 indexing</b>.  The statement <code>i = A&gt;0.5</code> returns a logical (0/1 or
 false/true) array of the same dimension as <code>A</code> indicating whether or
 not the entry is larger than 0.5.  Next, <code>A(i)</code> simply returns those
@@ -809,9 +1347,9 @@ corresponding indices, but often this is not needed.
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-3">
-<h3 id="orgheadline19"><span class="section-number-3">2.6</span> Linear indexing</h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-org0e46c77" class="outline-3">
+<h3 id="org0e46c77"><span class="section-number-3">3.6</span> Linear indexing</h3>
+<div class="outline-text-3" id="text-3-6">
 <p>
 Internally, Matlab stores a numerical array, regardless of its
 dimension and size, as a 1-dimensional vector.  Hence, the 3x4 matrix
@@ -819,12 +1357,11 @@ in the following example is actually stored as a vector of size 12.
 This explains the results of the following Matlab statements.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">A = [11 12 13 14
      21 22 23 24
      31 32 33 34]
 
-i = find(mod(A,11) <span style="color: #b58900;">==</span> 0)        <span style="color: #586e75; font-style: italic;">% find indices of multiples of 11</span>
+i = find(mod(A,11) <span style="color: #b58900;">==</span> 0)        <span style="color: #93a1a1; font-style: italic;">% find indices of multiples of 11</span>
 x = A(i)
 </pre>
 </div>
@@ -832,7 +1369,6 @@ x = A(i)
 Output:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">A =
 
     11    12    13    14
@@ -856,14 +1392,15 @@ x =
 </div>
 
 <p>
-The vector <code>i</code> is a linear index into the matrix <code>A</code>.  Linear indices
-can be translated in the corresponding regular multi-dimensional
-indices and vice versa by the functions <code>ind2sub</code> and <code>sub2ind</code>,
-respectively.  See the Matlab help function for more details of these
-functions.  For example:
+The vector <code>i</code> is a linear index into the matrix <code>A</code>. In this example,
+<code>A(5)</code> is exactly the same thing as <code>A(2,2)</code>. Linear indices can be
+translated in the corresponding regular multi-dimensional indices and
+vice versa by the functions <code>ind2sub</code> and <code>sub2ind</code>, respectively. See
+the Matlab help function for more details of these functions. For
+example:
 </p>
 <pre class="example">
-&gt;&gt; [row,col] = ind2sub([3 4],i')
+&gt;&gt; [row,col] = ind2sub([3, 4], i')
 
 row =
 
@@ -877,9 +1414,9 @@ col =
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-3">
-<h3 id="orgheadline21"><span class="section-number-3">2.7</span> Matrix creation and transformation</h3>
-<div class="outline-text-3" id="text-2-7">
+<div id="outline-container-org34072a6" class="outline-3">
+<h3 id="org34072a6"><span class="section-number-3">3.7</span> Matrix creation and transformation</h3>
+<div class="outline-text-3" id="text-3-7">
 <p>
 You should already be aware of functions like <code>ones</code>, <code>zeros</code>, <code>eyes</code>,
 <code>diag</code>, <code>tril</code>, <code>triu</code> to create basic arrays of desired size.  By
@@ -888,317 +1425,193 @@ window of opportunities opens.
 </p>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">2.7.1</span> Example: juggling with matrices</h4>
-<div class="outline-text-4" id="text-2-7-1">
+<div id="outline-container-org169f5d3" class="outline-4">
+<h4 id="org169f5d3"><span class="section-number-4">3.7.1</span> Example: juggling with matrices</h4>
+<div class="outline-text-4" id="text-3-7-1">
 <p>
-Given a vector \(x \in \mathbb{R}^{MN}\).  Create a \(Mm \times Nn\) matrix with
-\(M \times N\) submatrices of size \(m \times n\) with the elements in
-\(x\).
+Suppose we want to create the matrix
 </p>
-
-<p>
-Let <code>x = [1 2 3 4 5 6]</code> and \(m=3,n=2,M=2,N=3\).  Hence, we need to
-produce the matrix
-</p>
-<div class="org-src-container">
-
-<pre class="src src-fundamental">x =
-
-     1     1     2     2     3     3
-     1     1     2     2     3     3
-     1     1     2     2     3     3
-     4     4     5     5     6     6
-     4     4     5     5     6     6
-     4     4     5     5     6     6
-</pre>
-</div>
-<p>
-One way to solve this problem is to use the Kronecker product:
-</p>
-<div class="org-src-container">
-
-<pre class="src src-matlab">kron(reshape(1<span style="color: #b58900;">:</span>6,3,2), ones(2,3))'
-</pre>
-</div>
-<p>
-This solution is sufficient for most purposes, but you have to keep in
-mind that <code>kron</code> actually needs to do \(MNmn\) multiplications.  Hence,
-if the sizes become larger and the computation has to be repeated
-several times, then this solution is not so efficient.  Even though
-<code>kron</code> does not use loops, it is not necessary to perform the
-multiplications.
-</p>
-
-<p>
-We can solve this exercise in an efficient way without using loops by
-juggling around with matrices.  Perhaps it is not straightforward to
-get this solution, but it gives a good idea of what these functions
-can do.
-</p>
-
 <pre class="example">
-&gt;&gt; x = repmat(1:6,6,1)
+A =
 
-x =
-
-     1     2     3     4     5     6
-     1     2     3     4     5     6
-     1     2     3     4     5     6
-     1     2     3     4     5     6
-     1     2     3     4     5     6
-     1     2     3     4     5     6
-
-&gt;&gt; x = reshape(x, [3 2 3 2])    % convert to 4-dimensional array
-
-x(:,:,1,1) =
-
-     1     1
-     1     1
-     1     1
-
-
-x(:,:,2,1) =
-
-     2     2
-     2     2
-     2     2
-
-
-x(:,:,3,1) =
-
-     3     3
-     3     3
-     3     3
-
-
-x(:,:,1,2) =
-
-     4     4
-     4     4
-     4     4
-
-
-x(:,:,2,2) =
-
-     5     5
-     5     5
-     5     5
-
-
-x(:,:,3,2) =
-
-     6     6
-     6     6
-     6     6
-
-&gt;&gt; x = permute(x,[1 4 2 3]) % move the 4th dimension in front of the 2nd and 3rd
-                            % x(i,l,j,k)   &lt;---  x(i,j,k,l)
-x(:,:,1,1) =
-
-     1     4
-     1     4
-     1     4
-
-
-x(:,:,2,1) =
-
-     1     4
-     1     4
-     1     4
-
-
-x(:,:,1,2) =
-
-     2     5
-     2     5
-     2     5
-
-
-x(:,:,2,2) =
-
-     2     5
-     2     5
-     2     5
-
-
-x(:,:,1,3) =
-
-     3     6
-     3     6
-     3     6
-
-
-x(:,:,2,3) =
-
-     3     6
-     3     6
-     3     6
-
-&gt;&gt; x = reshape(x, [6 6]) % convert to 6x6 matrix
-
-x =
-
-     1     1     2     2     3     3
-     1     1     2     2     3     3
-     1     1     2     2     3     3
-     4     4     5     5     6     6
-     4     4     5     5     6     6
-     4     4     5     5     6     6
+     1     2
+     1     2
+     1     2
+     3     4
+     3     4
+     3     4
+     5     6
+     5     6
+     5     6
 </pre>
-
 <p>
-One way to understand what is going on here is to apply the same
-operations to the linear indices corresponding to the 6x6 matrix we
-started with.  The linear indices show where the entries end up in the
-final result.  For instance, the indices <code>[1 2 3 4 5 6]</code> correspond to
-the first column of the first matrix <code>x</code> with all ones.
+We can see there is a clear structure: it's a 3-by-2 block matrix with
+as the blocks 3-by-1 vectors with the numbers 1 to 6.  Let's try to
+create this matrix using the matrix creation and transformation
+function Matlab offers.
 </p>
 
+<p>
+Let's first solve an easier problem.  Suppose the blocks are simply
+scalars.  Then the matrix can be obtained by using <code>reshape</code>.
+</p>
 <pre class="example">
-&gt;&gt; k = reshape(1:36, [6, 6])
+&gt;&gt; reshape(1:6, 2, 3)'
 
-k =
+ans =
 
-     1     7    13    19    25    31
-     2     8    14    20    26    32
-     3     9    15    21    27    33
-     4    10    16    22    28    34
-     5    11    17    23    29    35
-     6    12    18    24    30    36
+     1     2
+     3     4
+     5     6
+</pre>
+<p>
+Note that we first reshape to a \(2 \times 3\) matrix and then transpose
+afterward. You can see why if you try to reshape to a \(3 \times 2\)
+matrix straight away.
+</p>
+<pre class="example">
+&gt;&gt; reshape(1:6, 3, 2)
 
-&gt;&gt; k = reshape(k, [3 2 3 2])
-
-k(:,:,1,1) =
+ans =
 
      1     4
      2     5
      3     6
+</pre>
+<p>
+The numbers 1 to 6 are in the wrong order now, because Matlab fills
+the entries by linear indexing, i.e., along the first dimension first.
+</p>
+
+<p>
+Now back to the original problem. We try the previous approach on
+3-by-1 blocks. First, we create the matrix
+</p>
+<pre class="example">
+&gt;&gt; A = repmat(1:6, 3, 1)
+
+A =
+
+     1     2     3     4     5     6
+     1     2     3     4     5     6
+     1     2     3     4     5     6
+</pre>
+<p>
+Note that we cannot simply reshape to a \(9 \times 2\) or a transposed \(2
+\times 9\) matrix as you can see below.
+</p>
+<pre class="example">
+&gt;&gt; reshape(A, [9, 2])
+
+ans =
+
+     1     4
+     1     4
+     1     4
+     2     5
+     2     5
+     2     5
+     3     6
+     3     6
+     3     6
+
+&gt;&gt; reshape(A, [2, 9])'
+
+ans =
+
+     1     1
+     1     2
+     2     2
+     3     3
+     3     4
+     4     4
+     5     5
+     5     6
+     6     6
+</pre>
+<p>
+Again the reason is that Matlab creates the matrices using the linear
+index. The solution is to temporarily add a third dimension.
+</p>
+<pre class="example">
+&gt;&gt; B = reshape(A, [3, 2, 3])
+
+B(:,:,1) =
+
+     1     2
+     1     2
+     1     2
 
 
-k(:,:,2,1) =
+B(:,:,2) =
 
-     7    10
-     8    11
-     9    12
-
-
-k(:,:,3,1) =
-
-    13    16
-    14    17
-    15    18
+     3     4
+     3     4
+     3     4
 
 
-k(:,:,1,2) =
+B(:,:,3) =
 
-    19    22
-    20    23
-    21    24
+     5     6
+     5     6
+     5     6
+</pre>
+<p>
+The result is a \(3 \times 2 \times 3\) double array. You can interpret
+this as a cube with three layers of \(3 \times 2\) matrices. Note that
+reshaping an array does not change the linear indices, i.e., <code>A(i)</code> is
+identical to <code>B(i)</code> for any scalar index \(i\). If we want Matlab to
+move the block of 3s after the 1s (replacing the 2s), then we need to
+permute the array. Permuting an array is nothing more than swapping
+indices. Transposing a matrix is an example of an permutation:
+\((X^T)_{ij} = X_{ji}\): the first and second dimension of the
+transposed matrix correspond, respectively, to the second and first
+dimension of the original matrix. We define an array <code>C</code> by swapping
+the 2nd and 3rd dimension of the array <code>B</code> above: \(C_{ijl} = B_{ilj}\).
+</p>
+<pre class="example">
+&gt;&gt; C = permute(B, [1, 3, 2])
 
+C(:,:,1) =
 
-k(:,:,2,2) =
-
-    25    28
-    26    29
-    27    30
-
-
-k(:,:,3,2) =
-
-    31    34
-    32    35
-    33    36
-
-&gt;&gt; k = permute(k, [1 4 2 3])
-
-k(:,:,1,1) =
-
-     1    19
-     2    20
-     3    21
-
-
-k(:,:,2,1) =
-
-     4    22
-     5    23
-     6    24
+     1     3     5
+     1     3     5
+     1     3     5
 
 
-k(:,:,1,2) =
+C(:,:,2) =
 
-     7    25
-     8    26
-     9    27
+     2     4     6
+     2     4     6
+     2     4     6
+</pre>
+<p>
+This results in a \(3 \times 3 \times 2\) array. Now the linear index is
+exactly lined up the way we want: if we reshape back to 2 dimensions
+this array, we get our desired result.
+</p>
+<pre class="example">
+&gt;&gt; D = reshape(C, [9, 2])
 
+D =
 
-k(:,:,2,2) =
-
-    10    28
-    11    29
-    12    30
-
-
-k(:,:,1,3) =
-
-    13    31
-    14    32
-    15    33
-
-
-k(:,:,2,3) =
-
-    16    34
-    17    35
-    18    36
-
-&gt;&gt; k = reshape(k, [6, 6])
-
-k =
-
-     1     4     7    10    13    16
-     2     5     8    11    14    17
-     3     6     9    12    15    18
-    19    22    25    28    31    34
-    20    23    26    29    32    35
-    21    24    27    30    33    36
+     1     2
+     1     2
+     1     2
+     3     4
+     3     4
+     3     4
+     5     6
+     5     6
+     5     6
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">2.8</span> Memory usage: operating in blocks</h3>
-<div class="outline-text-3" id="text-2-8">
-<p>
-As you should now by now, we prefer to operate on arrays (matrices,
-vectors) as a whole, because this is usually faster than operating on
-individual entries inside a loop.  Unfortunately, sometimes you want
-to do so many repetitions or your data set is so large, that Matlab
-experiences memory problems.  You may observe that the computation speed slows
-down, because Matlab has to read and write data to disk instead of
-using the internal memory of your computer.  In some cases, the memory
-that you require may be simply too much and Matlab returns an error.
-</p>
-
-<p>
-This does not necessarily mean that you have to revert to doing scalar
-operations instead.  A more sophisticated method is to use a loop and
-operate on a large block of your data set.  In this way, you still
-have the advantage of working on large arrays, and you can bypass the
-memory problem.
-</p>
-
-<p>
-You can practice this idea in one of the exercises.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgheadline23" class="outline-3">
-<h3 id="orgheadline23"><a id="ID-ccec59d7-ff30-4676-b819-c510e684c36b"></a><span class="section-number-3">2.9</span> Profiling</h3>
-<div class="outline-text-3" id="text-2-9">
+<div id="outline-container-org09b7c33" class="outline-3">
+<h3 id="org09b7c33"><a id="ID-ccec59d7-ff30-4676-b819-c510e684c36b"></a><span class="section-number-3">3.8</span> Profiling</h3>
+<div class="outline-text-3" id="text-3-8">
 <p>
 If you are really interested in optimizing your code, then Matlab's
 <a href="http://www.mathworks.nl/help/matlab/matlab_prog/profiling-for-improving-performance.html">profiler</a> is a very useful tool.  It presents you an overview of how
@@ -1210,9 +1623,9 @@ from the Matlab Editor interface using the button <i>Run and Time</i>.
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">2.10</span> Debugging</h3>
-<div class="outline-text-3" id="text-2-10">
+<div id="outline-container-org5e5f98d" class="outline-3">
+<h3 id="org5e5f98d"><span class="section-number-3">3.9</span> Debugging</h3>
+<div class="outline-text-3" id="text-3-9">
 <p>
 More important than the efficiency of your code is of course that the
 code does what it should do.  If it doesn't, then you should
@@ -1234,9 +1647,9 @@ particular line.
 </div>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-3">
-<h3 id="orgheadline25"><span class="section-number-3">2.11</span> Final remarks</h3>
-<div class="outline-text-3" id="text-2-11">
+<div id="outline-container-orge1c0e5d" class="outline-3">
+<h3 id="orge1c0e5d"><span class="section-number-3">3.10</span> Final remarks</h3>
+<div class="outline-text-3" id="text-3-10">
 <p>
 The tools we have discussed in this block enable a Matlab programmer
 to write very powerful programs with a few lines of code.  The danger
@@ -1267,17 +1680,16 @@ look at these functions.  See the Matlab help and <a href="http://ubcmatlabguide
 </div>
 </div>
 
-<div id="outline-container-orgheadline32" class="outline-3">
-<h3 id="orgheadline32"><span class="section-number-3">2.12</span> Exercises</h3>
-<div class="outline-text-3" id="text-2-12">
-</div><div id="outline-container-orgheadline26" class="outline-4">
-<h4 id="orgheadline26"><a id="ID-952c225f-8808-4639-a88c-eb36f65e4dd8"></a><span class="section-number-4">2.12.1</span> Student grades</h4>
-<div class="outline-text-4" id="text-2-12-1">
+<div id="outline-container-orga31cca2" class="outline-3">
+<h3 id="orga31cca2"><span class="section-number-3">3.11</span> Exercises</h3>
+<div class="outline-text-3" id="text-3-11">
+</div><div id="outline-container-orgc020e53" class="outline-4">
+<h4 id="orgc020e53"><a id="ID-952c225f-8808-4639-a88c-eb36f65e4dd8"></a><span class="section-number-4">3.11.1</span> Student grades</h4>
+<div class="outline-text-4" id="text-3-11-1">
 <p>
 Define a three-dimensional array using the statements
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">n = [4 2 10]
 A = 10<span style="color: #b58900;">*</span>rand(n)
 </pre>
@@ -1286,30 +1698,33 @@ A = 10<span style="color: #b58900;">*</span>rand(n)
 Perform the following tasks <i>without using loops</i>.
 </p>
 <ol class="org-ol">
-<li>Suppose that the entries in the matrix represent grades.  Round the
-grades to halves.  The only exception is that the grade 5.5 is not
-allowed; these grades have to be rounded to 5 or 6.</li>
+<li>Suppose that the entries in the matrix represent grades. Round the
+grades to halves. The only exception is that the grade 5.5 is not
+allowed; these grades have to be rounded to 5 or 6. <i>Hint:</i> use a
+logical index to locate the grades between 5 and 6. Then perform
+the one rounding operation on these grades, and another rounding
+operation on the grades not between 5 and 6.</li>
 
 <li>Create a matrix B with three columns for which the rows represent
 the indices into the matrix A that correspond to sufficient grades
-(&gt;=6).  Hence, if <code>A(2,1,5)</code> is greater or equal to 6, then <code>[2 1
-   5]</code> is one of the rows of <code>B</code>.</li>
+(&gt;=6). Hence, if <code>A(2,1,5)</code> is greater or equal to 6, then <code>[2, 1,
+   5]</code> is one of the rows of <code>B</code>. Use <code>ind2sub</code>.</li>
 
 <li>The matrix contains the grades for 10 students who each did 2
 assignments of 4 questions each.  Calculate the students' overall
 grades, which is determined by the arithmetic mean of the in total
 8 questions.  Did you use the <code>mean</code> function once or twice?  Try
-using it only once.</li>
+using it only once. (<i>Hint:</i> use <code>reshape</code>.)</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-4">
-<h4 id="orgheadline27"><a id="ID-8dd7350d-e34a-4bd9-8a0b-3134251ce58a"></a><span class="section-number-4">2.12.2</span> Euclidean distance</h4>
-<div class="outline-text-4" id="text-2-12-2">
+<div id="outline-container-org927f08f" class="outline-4">
+<h4 id="org927f08f"><a id="ID-8dd7350d-e34a-4bd9-8a0b-3134251ce58a"></a><span class="section-number-4">3.11.2</span> Euclidean distance</h4>
+<div class="outline-text-4" id="text-3-11-2">
 <p>
 Let the rows of the \(m \times n\) matrix \(X\) represent \(m\) vectors in
-$n$-dimensional space.  We want to create a \(m \times m\) matrix \(D\)
+\(n\)-dimensional space.  We want to create a \(m \times m\) matrix \(D\)
 such that \(D_{ij}=\|x_i-x_j\|_2\), i.e., the Euclidean distance
 (2-norm) between the ith and jth row of \(X\).  We want to write a
 function for this purpose.
@@ -1331,9 +1746,9 @@ implementations on a random matrix of size \(1000 \times 10\).  Use
 </div>
 </div>
 
-<div id="outline-container-orgheadline28" class="outline-4">
-<h4 id="orgheadline28"><a id="ID-4d6b405e-b490-43c0-82f4-653f0f55d273"></a><span class="section-number-4">2.12.3</span> Find the bug</h4>
-<div class="outline-text-4" id="text-2-12-3">
+<div id="outline-container-orge141097" class="outline-4">
+<h4 id="orge141097"><a id="ID-4d6b405e-b490-43c0-82f4-653f0f55d273"></a><span class="section-number-4">3.11.3</span> Find the bug</h4>
+<div class="outline-text-4" id="text-3-11-3">
 <p>
 In this exercise you'll have to find an error in a function.  It is
 not a syntax error, but a logical error, which might lead to errors or
@@ -1345,7 +1760,7 @@ through the function step by step and examine intermediate output.
 <p>
 Save the file <a href="rebalance.m">rebalance.m</a> on your Matlab path.  This function is
 supposed to convert a time series, represented by a vector, such that
-it does no longer contain negative entries.  It does so by transfering
+it does no longer contains negative entries.  It does so by transfering
 negative entries backwards in time, such that the sum of entries does
 not change (unless there is a negative entry in period 1).  For
 instance, if \(x=(4,-2,1)\), then the negative entry in period two can
@@ -1355,19 +1770,19 @@ should give the output shown in the example below.
 </p>
 
 <pre class="example">
-&gt;&gt; y = rebalance([2 4 -2 3 2 -4 5])
+&gt;&gt; y = rebalance([2, 4, -2, 3, 2, -4, 5])
 
 y =
 
      2     2     0     1     0     0     5
 
-&gt;&gt; y = rebalance([2 4 -2 3 2 -4 -1])
+&gt;&gt; y = rebalance([2, 4, -2, 3, 2, -4, -1])
 
 y =
 
      2     2     0     0     0     0     0
 
-&gt;&gt; y = rebalance([-2 4 -2 3 2 -4 5])
+&gt;&gt; y = rebalance([-2, 4, -2, 3, 2, -4, 5])
 
 y =
 
@@ -1382,9 +1797,9 @@ bug(s)!
 </div>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-4">
-<h4 id="orgheadline29"><a id="ID-0d48d59d-1002-4ca4-9102-9ad7fddc06d4"></a><span class="section-number-4">2.12.4</span> Square form</h4>
-<div class="outline-text-4" id="text-2-12-4">
+<div id="outline-container-orgc1979a5" class="outline-4">
+<h4 id="orgc1979a5"><a id="ID-0d48d59d-1002-4ca4-9102-9ad7fddc06d4"></a><span class="section-number-4">3.11.4</span> Square form</h4>
+<div class="outline-text-4" id="text-3-11-4">
 <p>
 Consider the square form \(x^TAx\) with \(x \in \mathbb{R}^n\) and \(A\in \mathbb{R}^{n
 \times n}\).  Suppose that we want to evaluate this expression for all
@@ -1392,11 +1807,10 @@ vectors in the rows of the \(m \times n\) matrix \(X\).
 The standard solution with loops is as follows:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">[m,n] = size(X);
 y = zeros(m,1);
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">i</span>=<span style="color: #2aa198;">1:m</span>
-  y(i) = X(i,<span style="color: #b58900;">:</span>)<span style="color: #b58900;">*</span>A<span style="color: #b58900;">*</span>X(i,<span style="color: #b58900;">:</span>)';
+  y(i) = X(i,<span style="color: #b58900;">:</span>) <span style="color: #b58900;">*</span> A <span style="color: #b58900;">*</span> X(i,<span style="color: #b58900;">:</span>)';
 <span style="color: #859900;">end</span>
 </pre>
 </div>
@@ -1408,81 +1822,37 @@ elementwise-product of matrices.</li>
 the performance of the two approaches by replicating the
 computations, say 1000 times, by putting them in a loop and time
 the duration using <code>tic</code> and <code>toc</code>.</li>
-<li>Also compare the performance of the two methods using the <a href="#orgheadline23">profiler</a>.</li>
+<li>Also compare the performance of the two methods using the <a href="#org09b7c33">profiler</a>.</li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgheadline30" class="outline-4">
-<h4 id="orgheadline30"><a id="ID-21d25682-51d0-4ea7-bcef-e05535b6f264"></a><span class="section-number-4">2.12.5</span> Run length decoding</h4>
-<div class="outline-text-4" id="text-2-12-5">
+<div id="outline-container-org3488619" class="outline-4">
+<h4 id="org3488619"><a id="ID-21d25682-51d0-4ea7-bcef-e05535b6f264"></a><span class="section-number-4">3.11.5</span> Run length decoding</h4>
+<div class="outline-text-4" id="text-3-11-5">
 <p>
-Reconsider the <a href="#orgheadline17">example</a> about the <code>diff</code> function. Extend the use of
+Reconsider the <a href="#orgdc2786d">example</a> about the <code>diff</code> function. Extend the use of
 the <code>diff</code> function even further by writing a function that also
-counts the number of subsequent equal values.  For a given input
-vector <code>x</code>, the function should return two outputs: a vector <code>y</code> (as
-in the example) and a vector <code>c</code> that counts the number of
-subsequential values in <code>x</code>.  For the particular example this would be
-<code>y = [10 20 30 40]</code> and <code>c = [3 4 2 3]</code>.
+counts the number of subsequent equal values. For a given input vector
+<code>x</code>, the function should return two outputs: a vector <code>y</code> (as in the
+example) and a vector <code>c</code> that counts the number of subsequential
+values in <code>x</code>. For the particular example this would be <code>y = [10 20 30
+40]</code> and <code>c = [3 4 2 3]</code>, i.e., 3 times the value 10, 4 times the
+value 20, etc.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgheadline31" class="outline-4">
-<h4 id="orgheadline31"><a id="ID-e7a25292-1dcb-46f3-8931-acd2ea2fb60e"></a><span class="section-number-4">2.12.6</span> Random experiment: operating in blocks</h4>
-<div class="outline-text-4" id="text-2-12-6">
-<p>
-Consider the following experiment.  We have a group of \(n\) people
-numbered from 1 to \(n\).  They are put in a random sequence and we are
-interested in the number of occurrences where two people with
-consecutive numbers are side by side.  For instance, if person number
-5 is followed by person number 6, then we have a hit.  However, if
-these two persons are in the opposite order, then it does not count.
-If we have three consecutive numbers in line, then this should count
-as two.
-</p>
-
-<ol class="org-ol">
-<li>Create a function that takes the size of the group and the number
-of experiment replications as inputs, and then performs the
-experiment and returns the fraction of consecutive numbers in the
-generated sequences.  Matlab has a function <code>randperm</code>, however,
-this function can generate random permutations only one by one.  We
-want to generate them all at once.  You could do this by using
-<code>rand</code> in combination with (the second output argument) of <code>sort</code>.
-You should not use a loop in your function.</li>
-
-<li>Test your function and try different values for the number of
-replications.  Try to find the number where Matlab slows down due
-to memory problems.</li>
-
-<li>Make a new implementation of your function in such a way that it
-can generate and operate blocks of permutations.  For instance,
-instead of doing 1 billion permutations in one go, you'll do 1000
-blocks of 1 million permutations.</li>
-
-<li>Try to compare the performance differences with respect to the
-speed for several block sizes when working with a large number of
-replications.  You might want to use the profiler.</li>
-
-<li>Bonus question: add another input argument to your function that
-indicates the required number of consecutive numbers in the line.
-In the standard case this was two, but it could be three or any
-other number.</li>
-</ol>
-</div>
-</div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline41" class="outline-2">
-<h2 id="orgheadline41"><a id="ID-5c3e852a-e742-42f6-aadc-166fdcd90c1c"></a><span class="section-number-2">3</span> Cell and structure arrays</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org7a1123b" class="outline-2">
+<h2 id="org7a1123b"><a id="ID-5c3e852a-e742-42f6-aadc-166fdcd90c1c"></a><span class="section-number-2">4</span> Cell and structure arrays</h2>
+<div class="outline-text-2" id="text-4">
 </div>
 
-<div id="outline-container-orgheadline35" class="outline-3">
-<h3 id="orgheadline35"><span class="section-number-3">3.1</span> Cells</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-org54560a4" class="outline-3">
+<h3 id="org54560a4"><span class="section-number-3">4.1</span> Cells</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 The most used data type in Matlab is without any doubt the <i>double</i>,
 which is a data type that represents numerical numbers.
@@ -1499,7 +1869,7 @@ belongs together and has different formats and sizes.
 <p>
 Look at <a href="http://ubcmatlabguide.github.io/html/dataStructures.html#13">this</a> quick introduction about cell arrays.  You can stop
 reading when they start talking about <code>cellfun</code>.  Although this is a
-very useful function, especially in combination with <a href="#orgheadline34">function handles</a>,
+very useful function, especially in combination with <a href="#orgd5eedea">function handles</a>,
 and I encourage the use of it, we don't deal with it in this course.
 </p>
 
@@ -1511,9 +1881,9 @@ function.
 </div>
 </div>
 
-<div id="outline-container-orgheadline37" class="outline-3">
-<h3 id="orgheadline37"><span class="section-number-3">3.2</span> Structures</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-org1137759" class="outline-3">
+<h3 id="org1137759"><span class="section-number-3">4.2</span> Structures</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 Structures arrays are an alternative way to store data of different
 types and size in a single entity.  You might know structures from
@@ -1529,9 +1899,9 @@ Matlab documentation.
 </p>
 </div>
 
-<div id="outline-container-orgheadline36" class="outline-4">
-<h4 id="orgheadline36"><span class="section-number-4">3.2.1</span> Example: passing multiple arguments to a function</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-org97ceb78" class="outline-4">
+<h4 id="org97ceb78"><span class="section-number-4">4.2.1</span> Example: passing multiple arguments to a function</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <p>
 One of the nice possibilities of structs is to pass multiple input
 arguments to a function.  This is specially useful for large projects.
@@ -1542,14 +1912,12 @@ Suppose that you have a set of functions that share a large set of
 parameters:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">y</span> = <span style="color: #268bd2;">main</span>(<span style="color: #268bd2;">x</span>,<span style="color: #268bd2;">rho</span>,<span style="color: #268bd2;">lambda</span>,<span style="color: #268bd2;">mu</span>,<span style="color: #268bd2;">sigma</span>,<span style="color: #268bd2;">A</span>,<span style="color: #268bd2;">b</span>)
 
 y = subfun(x,rho,lambda,mu,sigma,A,b);
 </pre>
 </div>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">y</span> = <span style="color: #268bd2;">subfun</span>(<span style="color: #268bd2;">x</span>,<span style="color: #268bd2;">rho</span>,<span style="color: #268bd2;">lambda</span>,<span style="color: #268bd2;">mu</span>,<span style="color: #268bd2;">sigma</span>,<span style="color: #268bd2;">A</span>,<span style="color: #268bd2;">b</span>)
 
 y = x <span style="color: #b58900;">+</span> rho<span style="color: #b58900;">/</span>lambda <span style="color: #b58900;">+</span> mu<span style="color: #b58900;">*</span>sigma <span style="color: #b58900;">+</span> A'<span style="color: #b58900;">*</span>A<span style="color: #b58900;">*</span>b;
@@ -1574,18 +1942,16 @@ change the function <code>main</code> and all functions that call <code>main</co
 We can resolve these inconveniences by using structs:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">y</span> = <span style="color: #268bd2;">main</span>(<span style="color: #268bd2;">x</span>, <span style="color: #268bd2;">pars</span>)
 
 y = subfun(x, pars);
 </pre>
 </div>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">y</span> = <span style="color: #268bd2;">subfun</span>(<span style="color: #268bd2;">x</span>, <span style="color: #268bd2;">pars</span>)
 
-<span style="color: #586e75; font-style: italic;">% Extract parameters from struct.  This step is not really necessary,</span>
-<span style="color: #586e75; font-style: italic;">% because we can use the values directly as well.</span>
+<span style="color: #93a1a1; font-style: italic;">% Extract parameters from struct.  This step is not really necessary,</span>
+<span style="color: #93a1a1; font-style: italic;">% because we can use the values directly as well.</span>
 rho    = pars.rho;
 lambda = pars.lambda;
 mu     = pars.mu;
@@ -1600,12 +1966,12 @@ y = x <span style="color: #b58900;">+</span> rho<span style="color: #b58900;">/<
 </div>
 </div>
 
-<div id="outline-container-orgheadline40" class="outline-3">
-<h3 id="orgheadline40"><span class="section-number-3">3.3</span> Exercises</h3>
-<div class="outline-text-3" id="text-3-3">
-</div><div id="outline-container-orgheadline38" class="outline-4">
-<h4 id="orgheadline38"><a id="ID-b978a9bc-bf20-4054-8450-706921675ebd"></a><span class="section-number-4">3.3.1</span> Reading from a text file</h4>
-<div class="outline-text-4" id="text-3-3-1">
+<div id="outline-container-org99f6b7d" class="outline-3">
+<h3 id="org99f6b7d"><span class="section-number-3">4.3</span> Exercises</h3>
+<div class="outline-text-3" id="text-4-3">
+</div><div id="outline-container-orga44b537" class="outline-4">
+<h4 id="orga44b537"><a id="ID-b978a9bc-bf20-4054-8450-706921675ebd"></a><span class="section-number-4">4.3.1</span> Reading from a text file</h4>
+<div class="outline-text-4" id="text-4-3-1">
 <p>
 In this exercise we are also going to practice some data import and
 export tools.  Note that if you are importing/exporting only numerical
@@ -1649,9 +2015,9 @@ and <code>fclose</code>.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline39" class="outline-4">
-<h4 id="orgheadline39"><a id="ID-78bc9efc-f6ff-4058-87af-e1850aaaf67b"></a><span class="section-number-4">3.3.2</span> Combinations totaling to sum</h4>
-<div class="outline-text-4" id="text-3-3-2">
+<div id="outline-container-org8b1bce9" class="outline-4">
+<h4 id="org8b1bce9"><a id="ID-78bc9efc-f6ff-4058-87af-e1850aaaf67b"></a><span class="section-number-4">4.3.2</span> Combinations totaling to sum</h4>
+<div class="outline-text-4" id="text-4-3-2">
 <p>
 Consider natural numbers \(n\) and \(k\).  We are interested in creating
 all possible combinations of \(k\) numbers summing to \(n\).  For example,
@@ -1688,36 +2054,35 @@ function.  It is instructive to walk through the steps of this
 function using the debugger.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">c</span> = <span style="color: #268bd2;">combsum</span>(<span style="color: #268bd2;">n</span>,<span style="color: #268bd2;">k</span>)
-<span style="color: #586e75; font-style: italic;">% </span><span style="color: #2aa198; font-style: italic;">COMBSUM </span><span style="color: #586e75; font-style: italic;">All combinations of natural numbers totaling to sum</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% c = combsum(n,k)</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% Returns all possible combinations of K numbers totalling to N in the</span>
-<span style="color: #586e75; font-style: italic;">% rows of the output matrix C.</span>
+<span style="color: #93a1a1; font-style: italic;">% </span><span style="color: #2aa198; font-style: italic;">COMBSUM </span><span style="color: #93a1a1; font-style: italic;">All combinations of natural numbers totaling to sum</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% c = combsum(n,k)</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% Returns all possible combinations of K numbers totalling to N in the</span>
+<span style="color: #93a1a1; font-style: italic;">% rows of the output matrix C.</span>
 
-<span style="color: #586e75; font-style: italic;">% We consider n+k-1 items: n ones and k-1 "dividers".  The dividers partition</span>
-<span style="color: #586e75; font-style: italic;">% the n numbers in k subsets.</span>
-<span style="color: #586e75; font-style: italic;">% </span>
-<span style="color: #586e75; font-style: italic;">% Suppose n=4, k=3.  Then one of the combinations produced by nchoosek is</span>
-<span style="color: #586e75; font-style: italic;">% [2 5].  This places dividers at position 2 and 5:</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">%   [ 1 2 3 4 5 6</span>
-<span style="color: #586e75; font-style: italic;">%     1 * 1 1 * 1 ]</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% which partitions the ones in three parts yielding the combination [1 2 1].</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% This combination can be obtained taking the diff of [0 [2 5] 7] and</span>
-<span style="color: #586e75; font-style: italic;">% subtracting one.</span>
+<span style="color: #93a1a1; font-style: italic;">% We consider n+k-1 items: n ones and k-1 "dividers".  The dividers partition</span>
+<span style="color: #93a1a1; font-style: italic;">% the n numbers in k subsets.</span>
+<span style="color: #93a1a1; font-style: italic;">% </span>
+<span style="color: #93a1a1; font-style: italic;">% Suppose n=4, k=3.  Then one of the combinations produced by nchoosek is</span>
+<span style="color: #93a1a1; font-style: italic;">% [2 5].  This places dividers at position 2 and 5:</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">%   [ 1 2 3 4 5 6</span>
+<span style="color: #93a1a1; font-style: italic;">%     1 * 1 1 * 1 ]</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% which partitions the ones in three parts yielding the combination [1 2 1].</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% This combination can be obtained taking the diff of [0 [2 5] 7] and</span>
+<span style="color: #93a1a1; font-style: italic;">% subtracting one.</span>
 
-dividers = nchoosek(1<span style="color: #b58900;">:</span>(n<span style="color: #b58900;">+</span>k<span style="color: #b58900;">-</span>1), k<span style="color: #b58900;">-</span>1);    <span style="color: #586e75; font-style: italic;">% produce all combinations</span>
+dividers = nchoosek(1<span style="color: #b58900;">:</span>(n<span style="color: #b58900;">+</span>k<span style="color: #b58900;">-</span>1), k<span style="color: #b58900;">-</span>1);    <span style="color: #93a1a1; font-style: italic;">% produce all combinations</span>
 nDividers = size(dividers, 1);
 
-<span style="color: #586e75; font-style: italic;">% Add dividers at the beginning and end.</span>
+<span style="color: #93a1a1; font-style: italic;">% Add dividers at the beginning and end.</span>
 b = [zeros(nDividers, 1), dividers, (n<span style="color: #b58900;">+</span>k)<span style="color: #b58900;">*</span>ones(nDividers, 1)];
 
-<span style="color: #586e75; font-style: italic;">% Find distances between dividers.</span>
+<span style="color: #93a1a1; font-style: italic;">% Find distances between dividers.</span>
 c = diff(b, 1, 2) <span style="color: #b58900;">-</span> 1;
 </pre>
 </div>
@@ -1729,7 +2094,7 @@ In this exercise, we make another implementation of the function
 <ol class="org-ol">
 <li>Initialize an empty cell array <code>x</code> of size \(1 \times k\).</li>
 <li>Use the <code>ndgrid</code> function to create \(k\) multi-dimensional arrays
-(tensors) of size \((n+1)^{k}\) (with values \(0\) to \(n\)) into the
+of size \((n+1)^{k}\) (with values \(0\) to \(n\)) into the
 cell array that you just created.  The left-hand side of this
 assignment should be <code>[x{:}]</code>, which is the same as
 <code>[x{1},x{2},...,x{end}]</code>.  This puts the \(k\) outputs of <code>ndgrid</code> in
@@ -1748,13 +2113,13 @@ write the new implementation of <code>combsum</code>.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline34" class="outline-2">
-<h2 id="orgheadline34"><a id="ID-45deb06a-1b77-4d12-ae30-fb32575ea4d8"></a><span class="section-number-2">4</span> Function handles &amp; anonymous functions</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgd5eedea" class="outline-2">
+<h2 id="orgd5eedea"><a id="ID-45deb06a-1b77-4d12-ae30-fb32575ea4d8"></a><span class="section-number-2">5</span> Function handles &amp; anonymous functions</h2>
+<div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgheadline42" class="outline-3">
-<h3 id="orgheadline42"><span class="section-number-3">4.1</span> Introduction</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org0d7c07a" class="outline-3">
+<h3 id="org0d7c07a"><span class="section-number-3">5.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 You should already be familiar with the concept of m-file functions,
 because it's the standard way to define a function in Matlab.  M-file
@@ -1770,22 +2135,20 @@ convenient as we shall see.
 </div>
 </div>
 
-<div id="outline-container-orgheadline43" class="outline-3">
-<h3 id="orgheadline43"><span class="section-number-3">4.2</span> Function handles</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-org43c6893" class="outline-3">
+<h3 id="org43c6893"><span class="section-number-3">5.2</span> Function handles</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 A function handle is nothing more than a <i>reference</i> to another
 function.  This is a simple example how to create and use a reference
 to a built-in Matlab function.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab">f = @sin;                       <span style="color: #586e75; font-style: italic;">% reference to the sin function</span>
-x = f(<span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</span>(0<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>2))             <span style="color: #586e75; font-style: italic;">% evaluate sin through the function handle f</span>
+<pre class="src src-matlab">f = @sin;                       <span style="color: #93a1a1; font-style: italic;">% reference to the sin function</span>
+x = f(<span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</span>(0<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>2))             <span style="color: #93a1a1; font-style: italic;">% evaluate sin through the function handle f</span>
 </pre>
 </div>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">x =
 
          0    1.0000    0.0000   -1.0000   -0.0000
@@ -1796,15 +2159,13 @@ x = f(<span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</sp
 This also works for multiple input and output arguments.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">g = @min;
 A = [1 2
      4 3];
-[x,i] = g(A,[],2)               <span style="color: #586e75; font-style: italic;">% find row minimum (traverse along 2nd dimension)</span>
+[x,i] = g(A,[],2)               <span style="color: #93a1a1; font-style: italic;">% find row minimum (traverse along 2nd dimension)</span>
 </pre>
 </div>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">x =
 
      1
@@ -1820,9 +2181,9 @@ i =
 </div>
 </div>
 
-<div id="outline-container-orgheadline44" class="outline-3">
-<h3 id="orgheadline44"><span class="section-number-3">4.3</span> Anonymous functions</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-org4b5a347" class="outline-3">
+<h3 id="org4b5a347"><span class="section-number-3">5.3</span> Anonymous functions</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 An <a href="http://www.mathworks.nl/help/matlab/matlab_prog/anonymous-functions.html">anonymous function</a> is a special type of function handle to a
 function for which no m-file function exists.  You can see it as an
@@ -1835,7 +2196,6 @@ functions from now on.
 Here is a simple example of an anonymous function:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">f = @(x) poisspdf(x, 5)
 </pre>
 </div>
@@ -1854,7 +2214,6 @@ We can also define functions with multiple input arguments and use
 variables from the workspace in the definition.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">a = 1;
 c = 2;
 f = @(x,a) a<span style="color: #b58900;">.*</span>(x<span style="color: #b58900;">-</span>c)<span style="color: #b58900;">.^</span>2;
@@ -1872,7 +2231,6 @@ used as a (temporary) reference to the second input argument of <code>f</code>.
 These notions explain the results of the following commands.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">t = [4 4 5 5];
 b = [1 2 1 2];
 y = f(t,b);
@@ -1886,7 +2244,6 @@ Changing the variables <code>a</code> and <code>c</code> has no effect on the ou
 can see:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">y =
 
      4     8     9    18
@@ -1896,9 +2253,9 @@ can see:
 </div>
 </div>
 
-<div id="outline-container-orgheadline45" class="outline-3">
-<h3 id="orgheadline45"><span class="section-number-3">4.4</span> Illustrative example</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-org1f0ab00" class="outline-3">
+<h3 id="org1f0ab00"><span class="section-number-3">5.4</span> Illustrative example</h3>
+<div class="outline-text-3" id="text-5-4">
 <p>
 Now that we have seen how to define anonymous functions, let's have a
 look at some examples where anonymous functions are very useful.  We
@@ -1916,7 +2273,6 @@ to find the zero location of a function of a scalar variable.  For
 instance:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">&gt;&gt; fzero(@log, 2)
 
 ans =
@@ -1947,7 +2303,6 @@ requires a function with only one input variable.
 This problem is easily solved with anonymous functions:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">f = @(x) gamma(x)<span style="color: #b58900;">-</span>10;
 x = fzero(f, 2)
 </pre>
@@ -1956,7 +2311,6 @@ x = fzero(f, 2)
 We can even do it in one line:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">x = fzero(@(x) gamma(x)<span style="color: #b58900;">-</span>10, 2)
 </pre>
 </div>
@@ -1967,7 +2321,6 @@ that generalizes the <code>fzero</code> function to include an input variable
 that represents the target.  Consider the m-file function
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">x</span> = <span style="color: #268bd2;">ftarget</span>(<span style="color: #268bd2;">f</span>, <span style="color: #268bd2;">target</span>, <span style="color: #268bd2;">x0</span>)
 
 g = @(x)(f(x) <span style="color: #b58900;">-</span> target);
@@ -1978,7 +2331,6 @@ x = fzero(g, x0);
 Now we can do
 </p>
 <div class="org-src-container">
-
 <pre class="src src-fundamental">&gt;&gt; [ftarget(@log, 1, 2), ftarget(@gamma, 120, 3), ftarget(@normcdf, 0.975, 3)]
 
 ans =
@@ -1991,19 +2343,18 @@ Note that we could have obtained the same results from the following
 anonymous function instead of the m-file function above.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">ftarget = @(fun, target, x0) fzero(@(x) fun(x)<span style="color: #b58900;">-</span>target, x0)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline50" class="outline-3">
-<h3 id="orgheadline50"><span class="section-number-3">4.5</span> Exercises</h3>
-<div class="outline-text-3" id="text-4-5">
-</div><div id="outline-container-orgheadline46" class="outline-4">
-<h4 id="orgheadline46"><a id="ID-6cb3074d-f8f9-4abf-82ae-3f33c1e0adb4"></a><span class="section-number-4">4.5.1</span> Piecewise function</h4>
-<div class="outline-text-4" id="text-4-5-1">
+<div id="outline-container-org3f4c46f" class="outline-3">
+<h3 id="org3f4c46f"><span class="section-number-3">5.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-5-5">
+</div><div id="outline-container-org0b2b7b6" class="outline-4">
+<h4 id="org0b2b7b6"><a id="ID-6cb3074d-f8f9-4abf-82ae-3f33c1e0adb4"></a><span class="section-number-4">5.5.1</span> Piecewise function</h4>
+<div class="outline-text-4" id="text-5-5-1">
 <p>
 Define the following function as an anonymous function.  Make sure
 that the function allows non-scalar input.  Note that you can't use
@@ -2011,7 +2362,7 @@ that the function allows non-scalar input.  Note that you can't use
 </p>
 \begin{equation*}
 f(x) = \begin{cases}
-x+1 & \mathrm{if\ } x \leq 1\\
+2x+2 & \mathrm{if\ } x \leq 1\\
 x+3 & \mathrm{if\ } 1 < x \leq 2 \\
 7-x^2/2 & \mathrm{if\ } x > 2
 \end{cases}
@@ -2022,9 +2373,9 @@ Plot the function using <code>fplot</code>.
 </p>
 </div>
 </div>
-<div id="outline-container-orgheadline47" class="outline-4">
-<h4 id="orgheadline47"><a id="ID-4355d7d3-abc5-4437-bcc6-a2368c26e350"></a><span class="section-number-4">4.5.2</span> Expected value</h4>
-<div class="outline-text-4" id="text-4-5-2">
+<div id="outline-container-org990791b" class="outline-4">
+<h4 id="org990791b"><a id="ID-4355d7d3-abc5-4437-bcc6-a2368c26e350"></a><span class="section-number-4">5.5.2</span> Expected value</h4>
+<div class="outline-text-4" id="text-5-5-2">
 <p>
 Let \(X\) be a gamma distributed random variable with shape parameter 5
 and scale parameter 2.  Write an anonymous function <code>Efx</code> that returns
@@ -2041,13 +2392,13 @@ calculate
 </ol>
 </div>
 </div>
-<div id="outline-container-orgheadline49" class="outline-4">
-<h4 id="orgheadline49"><a id="ID-739fd4a2-abd2-4ad5-b5e6-8a2847b66922"></a><span class="section-number-4">4.5.3</span> Solving nonlinear equations</h4>
-<div class="outline-text-4" id="text-4-5-3">
+<div id="outline-container-org2a1b19d" class="outline-4">
+<h4 id="org2a1b19d"><a id="ID-739fd4a2-abd2-4ad5-b5e6-8a2847b66922"></a><span class="section-number-4">5.5.3</span> Solving nonlinear equations</h4>
+<div class="outline-text-4" id="text-5-5-3">
 <p>
 In this exercise we will try to solve a system of <i>nonlinear</i>
 equations.  Note that we will discuss <i>linear</i> equations in the
-section about <a href="#orgheadline48">Linear algebra</a>.
+section about <a href="#orge3cb9dd">Linear algebra</a>.
 </p>
 
 <p>
@@ -2083,38 +2434,36 @@ verified that the n-dimensional all-one vector is a solution for this
 problem.
 </p>
 
-<p>
-Now try to find this solution numerically using the <code>fsolve</code> function.
-Read the documentation about how to use this function.  Pick a random
-initial guess&#x2014;i.e., generate it using a random number generator&#x2014;and
-make sure to have the function display some output so that you can
-check the number of function evaluations.
-</p>
+<ol class="org-ol">
+<li>Now try to find this solution numerically using the <code>fsolve</code>
+function. Read the documentation about how to use this function.
+Pick a random initial guess&#x2014;i.e., generate it using a random
+number generator&#x2014;and make sure to have the function display some
+output so that you can check the number of function evaluations
+(use <code>optimoptions</code> to set the option 'Display' to
+'iter-detailed').</li>
 
-<p>
-Now do the same, but also provide <code>fsolve</code> with the Jacobian (first
-derivative) of \(f(.)\).  You cannot use an anonymous function for that.
-This time you have to write a m-file function to compute the function
-\(f\) (first output argument) and its Jacobian (second output argument).
-</p>
-
-<p>
-If you run the algorithm again, then you should see that the number of
-function evaluations is much smaller than in the case without the
-Jacobian.
-</p>
+<li>Now do the same, but also provide <code>fsolve</code> with the Jacobian (first
+derivative) of \(f(.)\). You cannot use an anonymous function for
+that. This time you have to write a m-file function to compute the
+function \(f\) (first output argument) and its Jacobian (second
+output argument). If you run the algorithm again (set the options
+'SpecifyObjectiveGradient and 'CheckGradients' to <code>true</code>), then you
+should see that the number of function evaluations is much smaller
+than in the case without the Jacobian.</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11"><a id="ID-d0f0cd2a-3770-4b51-a2ab-5e42f76dce91"></a><span class="section-number-2">5</span> Generic programming &amp; good documentation</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org38b7dda" class="outline-2">
+<h2 id="org38b7dda"><a id="ID-d0f0cd2a-3770-4b51-a2ab-5e42f76dce91"></a><span class="section-number-2">6</span> Generic programming &amp; good documentation</h2>
+<div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgheadline51" class="outline-3">
-<h3 id="orgheadline51"><span class="section-number-3">5.1</span> Introduction</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgcc9738e" class="outline-3">
+<h3 id="orgcc9738e"><span class="section-number-3">6.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 More often than not, Matlab is the number one choice among the tools
 that I would consider as an alternative to solve a particular problem.
@@ -2155,9 +2504,9 @@ functions and complex pieces of code.</dd>
 </div>
 </div>
 
-<div id="outline-container-orgheadline56" class="outline-3">
-<h3 id="orgheadline56"><span class="section-number-3">5.2</span> Generic programming</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orge335f14" class="outline-3">
+<h3 id="orge335f14"><span class="section-number-3">6.2</span> Generic programming</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 As explained in the introduction, the idea is to split a problem in
 smaller subproblems.  It is hard to give specific rules here; you
@@ -2183,9 +2532,9 @@ following sections.
 </p>
 </div>
 
-<div id="outline-container-orgheadline52" class="outline-4">
-<h4 id="orgheadline52"><span class="section-number-4">5.2.1</span> Allowing higher dimensional inputs than necessary for your original problem</h4>
-<div class="outline-text-4" id="text-5-2-1">
+<div id="outline-container-org66bd4b8" class="outline-4">
+<h4 id="org66bd4b8"><span class="section-number-4">6.2.1</span> Allowing higher dimensional inputs than necessary for your original problem</h4>
+<div class="outline-text-4" id="text-6-2-1">
 <p>
 Suppose that you want to compute the shape and scale parameters of a
 gamma distribution that correspond to a given mean and standard
@@ -2202,9 +2551,9 @@ loop again and again.
 </div>
 </div>
 
-<div id="outline-container-orgheadline53" class="outline-4">
-<h4 id="orgheadline53"><span class="section-number-4">5.2.2</span> Adding additional input arguments that control the behavior of the function</h4>
-<div class="outline-text-4" id="text-5-2-2">
+<div id="outline-container-orgd06009a" class="outline-4">
+<h4 id="orgd06009a"><span class="section-number-4">6.2.2</span> Adding additional input arguments that control the behavior of the function</h4>
+<div class="outline-text-4" id="text-6-2-2">
 <p>
 Suppose that you need to compute the 4-period moving average of
 multiple time series with quarterly data.  Because you may need to
@@ -2218,9 +2567,9 @@ moving average.
 </div>
 </div>
 
-<div id="outline-container-orgheadline54" class="outline-4">
-<h4 id="orgheadline54"><span class="section-number-4">5.2.3</span> Providing default values for some input variables</h4>
-<div class="outline-text-4" id="text-5-2-3">
+<div id="outline-container-orgbe0c81c" class="outline-4">
+<h4 id="orgbe0c81c"><span class="section-number-4">6.2.3</span> Providing default values for some input variables</h4>
+<div class="outline-text-4" id="text-6-2-3">
 <p>
 Continuing on the previous example, we can make the additional input
 argument optional.  Hence, the user is not required to use it, and in
@@ -2229,15 +2578,14 @@ accomplished by the use of the <code>nargin</code> statement, possibly in
 combination with <code>isempty</code>.  For example:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">y</span> = <span style="color: #268bd2;">MovingAverage</span>(<span style="color: #268bd2;">x</span>, <span style="color: #268bd2;">n</span>)
 
 <span style="color: #859900;">if</span> nargin <span style="color: #b58900;">&lt;</span> 2 <span style="color: #b58900;">||</span> isempty(n)
-  <span style="color: #586e75; font-style: italic;">% Default: four period moving average</span>
+  <span style="color: #93a1a1; font-style: italic;">% Default: four period moving average</span>
   n = 4;
 <span style="color: #859900;">end</span>
 
-<span style="color: #586e75; font-style: italic;">% Start of computations</span>
+<span style="color: #93a1a1; font-style: italic;">% Start of computations</span>
 </pre>
 </div>
 <p>
@@ -2248,7 +2596,7 @@ This allows the user to call the function by <code>MovingAverage(x)</code>,
 <p>
 By using the <code>varargin</code> construct it is even possible to have a
 variable number of input arguments.  The <code>varargin</code> construct requires
-some basic knowledge of <a href="#orgheadline41">cells</a>.
+some basic knowledge of <a href="#org7a1123b">cells</a>.
 </p>
 
 <p>
@@ -2257,9 +2605,9 @@ See the Matlab help and <a href="http://ubcmatlabguide.github.io/html/writingFun
 </div>
 </div>
 
-<div id="outline-container-orgheadline55" class="outline-4">
-<h4 id="orgheadline55"><span class="section-number-4">5.2.4</span> Providing additional output</h4>
-<div class="outline-text-4" id="text-5-2-4">
+<div id="outline-container-orgc87a6f2" class="outline-4">
+<h4 id="orgc87a6f2"><span class="section-number-4">6.2.4</span> Providing additional output</h4>
+<div class="outline-text-4" id="text-6-2-4">
 <p>
 Often your computations produce intermediate or side results.  These
 results could be useful in some circumstances.  Therefore, it doesn't
@@ -2275,9 +2623,9 @@ required output arguments by using the <code>nargout</code> and possibly even th
 </div>
 </div>
 
-<div id="outline-container-orgheadline60" class="outline-3">
-<h3 id="orgheadline60"><span class="section-number-3">5.3</span> Documenting your code</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-org8a42faf" class="outline-3">
+<h3 id="org8a42faf"><span class="section-number-3">6.3</span> Documenting your code</h3>
+<div class="outline-text-3" id="text-6-3">
 <p>
 As noted before, it is important to supply your code with appropriate
 documentation.  I distinguish between two different types of
@@ -2285,9 +2633,9 @@ documentation.
 </p>
 </div>
 
-<div id="outline-container-orgheadline57" class="outline-4">
-<h4 id="orgheadline57"><a id="ID-a0fe3eb9-b464-458d-9a7b-8d5ba7993830"></a><span class="section-number-4">5.3.1</span> Function documentation</h4>
-<div class="outline-text-4" id="text-5-3-1">
+<div id="outline-container-org2c17af5" class="outline-4">
+<h4 id="org2c17af5"><a id="ID-a0fe3eb9-b464-458d-9a7b-8d5ba7993830"></a><span class="section-number-4">6.3.1</span> Function documentation</h4>
+<div class="outline-text-4" id="text-6-3-1">
 <p>
 If you write a function, then you should always include
 </p>
@@ -2313,67 +2661,66 @@ The idea is explained in the following example.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">[y, trimmed]</span> = <span style="color: #268bd2;">trim_data</span>(<span style="color: #268bd2;">x</span>, <span style="color: #268bd2;">fraction</span>, <span style="color: #268bd2;">tail</span>)
-<span style="color: #586e75; font-style: italic;">% TRIM_DATA Trims the tails of input vector</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% y = trim_data(x)</span>
-<span style="color: #586e75; font-style: italic;">% y = trim_data(x, fraction)</span>
-<span style="color: #586e75; font-style: italic;">% y = trim_data(x, fraction, tail)</span>
-<span style="color: #586e75; font-style: italic;">%</span>
-<span style="color: #586e75; font-style: italic;">% For a numerical vector trims away a certain percentage of the lowest</span>
-<span style="color: #586e75; font-style: italic;">% and/or highest observations.</span>
-<span style="color: #586e75; font-style: italic;">% </span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
-<span style="color: #586e75; font-style: italic;">% | Input    | Description                                               |</span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
-<span style="color: #586e75; font-style: italic;">% | x        | vector with numerical data                                |</span>
-<span style="color: #586e75; font-style: italic;">% | fraction | fraction of observations to trim away (default: 0.2)      |</span>
-<span style="color: #586e75; font-style: italic;">% | tail     | 0: trim away high and low observations (default)          |</span>
-<span style="color: #586e75; font-style: italic;">% |          | 1: trim away high observations only ...                   |</span>
-<span style="color: #586e75; font-style: italic;">% |          | -1: trim away low observations only                       |</span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
-<span style="color: #586e75; font-style: italic;">% | Output   | Description                                               |</span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
-<span style="color: #586e75; font-style: italic;">% | y        | sorted vector with observations that are not trimmed away |</span>
-<span style="color: #586e75; font-style: italic;">% | trimmed  | the trimmed observations                                  |</span>
-<span style="color: #586e75; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% TRIM_DATA Trims the tails of input vector</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% y = trim_data(x)</span>
+<span style="color: #93a1a1; font-style: italic;">% y = trim_data(x, fraction)</span>
+<span style="color: #93a1a1; font-style: italic;">% y = trim_data(x, fraction, tail)</span>
+<span style="color: #93a1a1; font-style: italic;">%</span>
+<span style="color: #93a1a1; font-style: italic;">% For a numerical vector trims away a certain percentage of the lowest</span>
+<span style="color: #93a1a1; font-style: italic;">% and/or highest observations.</span>
+<span style="color: #93a1a1; font-style: italic;">% </span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% | Input    | Description                                               |</span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% | x        | vector with numerical data                                |</span>
+<span style="color: #93a1a1; font-style: italic;">% | fraction | fraction of observations to trim away (default: 0.2)      |</span>
+<span style="color: #93a1a1; font-style: italic;">% | tail     | 0: trim away high and low observations (default)          |</span>
+<span style="color: #93a1a1; font-style: italic;">% |          | 1: trim away high observations only ...                   |</span>
+<span style="color: #93a1a1; font-style: italic;">% |          | -1: trim away low observations only                       |</span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% | Output   | Description                                               |</span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
+<span style="color: #93a1a1; font-style: italic;">% | y        | sorted vector with observations that are not trimmed away |</span>
+<span style="color: #93a1a1; font-style: italic;">% | trimmed  | the trimmed observations                                  |</span>
+<span style="color: #93a1a1; font-style: italic;">% |----------+-----------------------------------------------------------|</span>
 
 <span style="color: #859900;">if</span> nargin <span style="color: #b58900;">&lt;</span> 2 <span style="color: #b58900;">||</span> isempty(fraction)
-  <span style="color: #586e75; font-style: italic;">% Default trim 20%.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Default trim 20%.</span>
   fraction = 0.2;
 <span style="color: #859900;">end</span>
 
 <span style="color: #859900;">if</span> nargin <span style="color: #b58900;">&lt;</span> 3 <span style="color: #b58900;">||</span> isempty(tail)
-  <span style="color: #586e75; font-style: italic;">% Default trim high and low observations.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Default trim high and low observations.</span>
   tail = 0;
 <span style="color: #859900;">end</span>
 
 <span style="color: #859900;">if</span> tail <span style="color: #b58900;">==</span> 0
-  <span style="color: #586e75; font-style: italic;">% Convert to one-sided fraction.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Convert to one-sided fraction.</span>
   fraction = fraction <span style="color: #b58900;">/</span> 2;
 <span style="color: #859900;">end</span>
 
 x = sort(x);
 n = length(x);
 
-<span style="color: #586e75; font-style: italic;">% Compute the number of observations to trim per tail.</span>
+<span style="color: #93a1a1; font-style: italic;">% Compute the number of observations to trim per tail.</span>
 k = floor(fraction <span style="color: #b58900;">*</span> n);
 
 <span style="color: #859900;">switch</span> <span style="color: #2aa198;">tail</span>
 <span style="color: #859900;">case</span> <span style="color: #2aa198;">1</span>
-  <span style="color: #586e75; font-style: italic;">% Trim high observations.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Trim high observations.</span>
   y = x(1<span style="color: #b58900;">:</span>end<span style="color: #b58900;">-</span>k);
 <span style="color: #859900;">case</span> <span style="color: #2aa198;">-1</span>
-  <span style="color: #586e75; font-style: italic;">% Trim low observations.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Trim low observations.</span>
   y = x(k<span style="color: #b58900;">+</span>1<span style="color: #b58900;">:</span>end);
 <span style="color: #859900;">otherwise</span>
-  <span style="color: #586e75; font-style: italic;">% Trim high and low observations.</span>
+  <span style="color: #93a1a1; font-style: italic;">% Trim high and low observations.</span>
   y = x(k<span style="color: #b58900;">+</span>1<span style="color: #b58900;">:</span>end<span style="color: #b58900;">-</span>k);
 <span style="color: #859900;">end</span>
 
-<span style="color: #586e75; font-style: italic;">% If second output argument required, then return the trimmed values.</span>
+<span style="color: #93a1a1; font-style: italic;">% If second output argument required, then return the trimmed values.</span>
 <span style="color: #859900;">if</span> nargout <span style="color: #b58900;">&gt;</span> 1
   <span style="color: #859900;">switch</span> <span style="color: #2aa198;">tail</span>
   <span style="color: #859900;">case</span> <span style="color: #2aa198;">1</span>
@@ -2389,9 +2736,9 @@ k = floor(fraction <span style="color: #b58900;">*</span> n);
 </div>
 </div>
 
-<div id="outline-container-orgheadline58" class="outline-4">
-<h4 id="orgheadline58"><span class="section-number-4">5.3.2</span> Local documentation</h4>
-<div class="outline-text-4" id="text-5-3-2">
+<div id="outline-container-org3c867a3" class="outline-4">
+<h4 id="org3c867a3"><span class="section-number-4">6.3.2</span> Local documentation</h4>
+<div class="outline-text-4" id="text-6-3-2">
 <p>
 You add local documentation, i.e., documentation to the code itself,
 for several reasons.
@@ -2399,7 +2746,7 @@ for several reasons.
 <ul class="org-ul">
 <li>To enhance the understanding of the main flow of the code.  This is
 the type of documentation that is present in the <code>trim_data</code>
-function in section about <a href="#orgheadline57">Function documentation</a>.</li>
+function in section about <a href="#org2c17af5">Function documentation</a>.</li>
 <li>To explain details about nontrivial parts or lines of code</li>
 <li>To explain the idea behind variables</li>
 </ul>
@@ -2414,9 +2761,9 @@ and the number of different variables is usually limited.
 </div>
 </div>
 
-<div id="outline-container-orgheadline59" class="outline-4">
-<h4 id="orgheadline59"><span class="section-number-4">5.3.3</span> Programming style</h4>
-<div class="outline-text-4" id="text-5-3-3">
+<div id="outline-container-orgda9ae07" class="outline-4">
+<h4 id="orgda9ae07"><span class="section-number-4">6.3.3</span> Programming style</h4>
+<div class="outline-text-4" id="text-6-3-3">
 <p>
 Code documentation is supported by a good programming style.  The
 programming style gives rules/guidelines about e.g.
@@ -2438,9 +2785,9 @@ want to add to this discussion.
 </div>
 </div>
 
-<div id="outline-container-orgheadline61" class="outline-3">
-<h3 id="orgheadline61"><a id="ID-e2a20a67-a233-4209-8df3-ad1962e78658"></a><span class="section-number-3">5.4</span> Exercise: restructuring code and adding documentation</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-orge8049cc" class="outline-3">
+<h3 id="orge8049cc"><a id="ID-e2a20a67-a233-4209-8df3-ad1962e78658"></a><span class="section-number-3">6.4</span> Exercise: restructuring code and adding documentation</h3>
+<div class="outline-text-3" id="text-6-4">
 <p>
 In this exercise, we consider a script file that is created by copying
 the commands from the <i>Command Window</i> in a Matlab session to an
@@ -2483,7 +2830,9 @@ coding</i>.</li>
 <li>If you want to add another point \(x_0\), then you'll have to copy a
 piece of the code and change the value for \(x_0\) used there.  In
 addition, you'll have to come up with a different color code to
-distinguish the plot from the other plots in the figure.</li>
+distinguish the plot from the other plots in the figure (in the
+newer versions of Matlab this is no longer necessary, as Matlab does
+this automatically now).</li>
 
 <li>If you want to do the experiment for another function instead of the
 sine, then you'll have to change the calls to the sine and cosine
@@ -2523,14 +2872,14 @@ original experiment and plots the results nicely in one figure.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-2">
-<h2 id="orgheadline48"><a id="ID-c9cf9668-e37b-4e68-a2c5-d7433aacaf80"></a><span class="section-number-2">6</span> Linear algebra</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orge3cb9dd" class="outline-2">
+<h2 id="orge3cb9dd"><a id="ID-c9cf9668-e37b-4e68-a2c5-d7433aacaf80"></a><span class="section-number-2">7</span> Linear algebra</h2>
+<div class="outline-text-2" id="text-7">
 </div>
 
-<div id="outline-container-orgheadline62" class="outline-3">
-<h3 id="orgheadline62"><span class="section-number-3">6.1</span> Basic linear algebra in Matlab</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-org403b8fd" class="outline-3">
+<h3 id="org403b8fd"><span class="section-number-3">7.1</span> Basic linear algebra in Matlab</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Matlab supports many basic linear algebra operations such as
 </p>
@@ -2571,9 +2920,8 @@ A rule of thumb, regardless of the case, is <b>always</b> use the
 <b>backslash</b> operator (<code>\</code>, <code>mldivide</code>):
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">x = A<span style="color: #b58900;">\</span>b;
-x = mldivide(A,b);              <span style="color: #586e75; font-style: italic;">% same as above</span>
+x = mldivide(A,b);              <span style="color: #93a1a1; font-style: italic;">% same as above</span>
 </pre>
 </div>
 <p>
@@ -2592,17 +2940,16 @@ obtained by <code>null(A)</code>.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline64" class="outline-3">
-<h3 id="orgheadline64"><span class="section-number-3">6.2</span> Exercises</h3>
-<div class="outline-text-3" id="text-6-2">
-</div><div id="outline-container-orgheadline63" class="outline-4">
-<h4 id="orgheadline63"><a id="ID-10e80565-f671-4789-a934-02de3b5a71f1"></a><span class="section-number-4">6.2.1</span> Obtaining different solutions to a under-determined linear system</h4>
-<div class="outline-text-4" id="text-6-2-1">
+<div id="outline-container-org9551ea8" class="outline-3">
+<h3 id="org9551ea8"><span class="section-number-3">7.2</span> Exercises</h3>
+<div class="outline-text-3" id="text-7-2">
+</div><div id="outline-container-orgef54098" class="outline-4">
+<h4 id="orgef54098"><a id="ID-10e80565-f671-4789-a934-02de3b5a71f1"></a><span class="section-number-4">7.2.1</span> Obtaining different solutions to a under-determined linear system</h4>
+<div class="outline-text-4" id="text-7-2-1">
 <p>
 Create a matrix \(A\) and vector \(b\) using the following commands.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">m = 6;
 n = 10;
 A = randn(m,n);
@@ -2631,54 +2978,63 @@ first four elements are equal to zero.  Note that if the rank of
 linearly independent vectors \(v^1,\dots,v^4\) in the null space:
 </p>
 \begin{equation*}
-y = \sum_{i=1}^4 \alpha_i v^i = V \alpha.
+y = \sum_{i=1}^4 \alpha_i v^i = \begin{bmatrix} v^1 & v^2 & v^3 & v^4 \end{bmatrix} \begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4 \end{bmatrix} = V \alpha.
 \end{equation*}
 <p>
 You'll need to find the coefficients \(\alpha_i\) for which the first
 four entries of the vector
 </p>
 \begin{equation}
-x = x^0 + y = x^0 + \sum_{i=1}^4 \alpha_i v^i
+x = x^0 + y = x^0 + V \alpha
 \end{equation}
 <p>
 are zero, and you can ignore the other 6 entries of \(x\) and \(y\).
 Hence, you'll need to find the homogeneous solution \(y\) for which
-\(y_j=-x^0_j\), for \(j=1,2,3,4\).
+\(y_j = (V \alpha)_j = -x^0_j\), for \(j=1,2,3,4\).
 </p></li>
 
-<li>Find the particular solution \(x\) that, among all solutions, has the
+<li><p>
+Find the particular solution \(x\) that, among all solutions, has the
 smallest 2-norm: \(\lVert x \rVert_2 = \sqrt{x^T x}\).  Ideally, you
 would like to choose \(x=0\) because its norm is 0, but \(x=0\) is not
 a solution to our linear system.  Again, a solution is always of
 the form \(x=x^0 + y\) with \(y=V\alpha\), where \(V\) is the matrix with
-the linear independent vectors from the null space.  The ideal
-solution \(x=0\) corresponds to \(y=-x^0\) or \(V \alpha = -x^0\).  Since
-the rank of \(V\) is 4, this system is over-determined and no
-solution will exist.  The best solution, therefore, comes from
-solving the associated least squares problem to this linear system.
-Check that this solution is equal to <code>pinv(A)*b</code></li>
+the linear independent vectors from the null space. The problem we
+want to solve is
+</p>
+\begin{equation*}
+  \min_{x: Ax = b} \lVert x \rVert_2
+  = \min_{\alpha} \lVert x^0 + V\alpha \rVert_2,
+\end{equation*}
+<p>
+which is a least squares problem corresponding to the system of
+equations \(V \alpha = - x^0\). Since the rank of \(V\) is 4, this
+system is indeed over-determined and no solution will exist. The
+best solution, therefore, comes from solving the associated least
+squares problem to this linear system. Check that this solution is
+equal to <code>pinv(A)*b</code>
+</p></li>
 </ol>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline68" class="outline-2">
-<h2 id="orgheadline68"><a id="ID-3ddaabd6-2f98-4f68-8791-b0f5ea420364"></a><span class="section-number-2">7</span> Graphics</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org1af84cc" class="outline-2">
+<h2 id="org1af84cc"><a id="ID-3ddaabd6-2f98-4f68-8791-b0f5ea420364"></a><span class="section-number-2">8</span> Graphics</h2>
+<div class="outline-text-2" id="text-8">
 </div>
 
-<div id="outline-container-orgheadline65" class="outline-3">
-<h3 id="orgheadline65"><span class="section-number-3">7.1</span> Customizing plots</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgb0aee9a" class="outline-3">
+<h3 id="orgb0aee9a"><span class="section-number-3">8.1</span> Customizing plots</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
 In this section we'll refresh/introduce some useful graphical
 commands using examples.  First, let's make a data set and plot them.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab">x = (0<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>15)';              <span style="color: #586e75; font-style: italic;">% column vector</span>
-y = [sin(x)<span style="color: #b58900;">./</span>x, exp(<span style="color: #b58900;">-</span>0.05<span style="color: #b58900;">*</span>x)<span style="color: #b58900;">.*</span>cos(.5<span style="color: #b58900;">*</span>x)]; <span style="color: #586e75; font-style: italic;">% two columns</span>
+<pre class="src src-matlab">x = (0<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>15)';              <span style="color: #93a1a1; font-style: italic;">% column vector</span>
+y = [sin(x)<span style="color: #b58900;">./</span>x, exp(<span style="color: #b58900;">-</span>0.05<span style="color: #b58900;">*</span>x)<span style="color: #b58900;">.*</span>cos(.5<span style="color: #b58900;">*</span>x)]; <span style="color: #93a1a1; font-style: italic;">% two columns</span>
 plot(x,y);
 </pre>
 </div>
@@ -2702,30 +3058,29 @@ customization manually over and over again.
 The next example shows the most common graphic customizations.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab"><span style="color: #b58900;">figure</span>                          <span style="color: #586e75; font-style: italic;">% create a new figure</span>
+<pre class="src src-matlab"><span style="color: #b58900;">figure</span>                          <span style="color: #93a1a1; font-style: italic;">% create a new figure</span>
 x = 0.1<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>7;
-plot(x, 1<span style="color: #b58900;">./</span>x, <span style="color: #2aa198;">'r--'</span>, <span style="color: #2aa198;">'linewidth'</span>, 2); <span style="color: #586e75; font-style: italic;">% set line color, line style and</span>
-                                      <span style="color: #586e75; font-style: italic;">% line width</span>
-hold on                         <span style="color: #586e75; font-style: italic;">% add the next plot in the same figure (axes)</span>
+plot(x, 1<span style="color: #b58900;">./</span>x, <span style="color: #2aa198;">'r--'</span>, <span style="color: #2aa198;">'linewidth'</span>, 2); <span style="color: #93a1a1; font-style: italic;">% set line color, line style and</span>
+                                      <span style="color: #93a1a1; font-style: italic;">% line width</span>
+hold on                         <span style="color: #93a1a1; font-style: italic;">% add the next plot in the same figure (axes)</span>
 
-<span style="color: #586e75; font-style: italic;">% With fplot we only have to specify the function and the range instead of</span>
-<span style="color: #586e75; font-style: italic;">% the x-y vectors.</span>
+<span style="color: #93a1a1; font-style: italic;">% With fplot we only have to specify the function and the range instead of</span>
+<span style="color: #93a1a1; font-style: italic;">% the x-y vectors.</span>
 fplot(@(x) sin(x)<span style="color: #b58900;">./</span>x, [<span style="color: #b58900;">-</span>7 7], <span style="color: #2aa198;">'b'</span>);
 
-grid on                         <span style="color: #586e75; font-style: italic;">% add x- and y- grid lines</span>
-<span style="color: #b58900;">axis</span>([<span style="color: #b58900;">-</span>7 7 <span style="color: #b58900;">-</span>2 4]);              <span style="color: #586e75; font-style: italic;">% change visible axis</span>
+grid on                         <span style="color: #93a1a1; font-style: italic;">% add x- and y- grid lines</span>
+<span style="color: #b58900;">axis</span>([<span style="color: #b58900;">-</span>7 7 <span style="color: #b58900;">-</span>2 4]);              <span style="color: #93a1a1; font-style: italic;">% change visible axis</span>
 
-<span style="color: #586e75; font-style: italic;">% Change the default location and labels of the x-axis.</span>
+<span style="color: #93a1a1; font-style: italic;">% Change the default location and labels of the x-axis.</span>
 <span style="color: #b58900;">set</span>(<span style="color: #268bd2;">gca</span>, <span style="color: #2aa198;">'xtick'</span>, <span style="color: #2aa198;">pi</span><span style="color: #b58900;">*</span>(<span style="color: #b58900;">-</span>2<span style="color: #b58900;">:</span>2));
 <span style="color: #b58900;">set</span>(<span style="color: #268bd2;">gca</span>, <span style="color: #2aa198;">'xticklabel'</span>, {<span style="color: #2aa198;">'-2pi'</span>, <span style="color: #2aa198;">'pi'</span>, <span style="color: #2aa198;">'0'</span>, <span style="color: #2aa198;">'pi'</span>, <span style="color: #2aa198;">'2pi'</span>});
 
-<span style="color: #586e75; font-style: italic;">% Add some labels</span>
+<span style="color: #93a1a1; font-style: italic;">% Add some labels</span>
 title(<span style="color: #2aa198;">'Example plot'</span>);
 xlabel(<span style="color: #2aa198;">'Input'</span>);
 ylabel(<span style="color: #2aa198;">'Output'</span>);
 legend(<span style="color: #2aa198;">'Hyperbola'</span>, <span style="color: #2aa198;">'Damped sine'</span>, <span style="text-decoration: underline;">...</span>
-       <span style="color: #2aa198;">'Location'</span>, <span style="color: #2aa198;">'NorthWest'</span>); <span style="color: #586e75; font-style: italic;">% force the location of the legend</span>
+       <span style="color: #2aa198;">'Location'</span>, <span style="color: #2aa198;">'NorthWest'</span>); <span style="color: #93a1a1; font-style: italic;">% force the location of the legend</span>
 </pre>
 </div>
 
@@ -2745,7 +3100,6 @@ to the current figure/axis.  Try the following commands and check the
 results and try to change some setting using the command line.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #b58900;">get</span>(<span style="color: #268bd2;">gcf</span>)
 <span style="color: #b58900;">get</span>(<span style="color: #268bd2;">gca</span>)
 <span style="color: #b58900;">get</span>(<span style="color: #268bd2;">gca</span>, <span style="color: #2aa198;">'ygrid'</span>);
@@ -2758,7 +3112,6 @@ If you want to create multiple figures or plots, then using cell
 arrays in combination with <code>sprintf</code> is useful to set labels/legends.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">x = (0<span style="color: #b58900;">:</span>0.01<span style="color: #b58900;">:</span>4)'; mu = [0.5, 1, 2];
 y = zeros(length(x), length(mu)); leg = cell(1,length(mu));
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">n</span>=<span style="color: #2aa198;">1:length(mu)</span>
@@ -2766,7 +3119,7 @@ y = zeros(length(x), length(mu)); leg = cell(1,length(mu));
   leg{n} = sprintf(<span style="color: #2aa198;">'\\mu = %.1f'</span>, mu(n));
 <span style="color: #859900;">end</span>
 plot(x, y);
-legend(leg{<span style="color: #b58900;">:</span>});                 <span style="color: #586e75; font-style: italic;">% passes the cells as arguments to legend</span>
+legend(leg{<span style="color: #b58900;">:</span>});                 <span style="color: #93a1a1; font-style: italic;">% passes the cells as arguments to legend</span>
 </pre>
 </div>
 
@@ -2785,13 +3138,12 @@ you want the plots to have different colors.  You can do this
 manually, for instance:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #b58900;">figure</span>;
-x = <span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>3;                           <span style="color: #586e75; font-style: italic;">% large step size</span>
-plot(x, sin(x), <span style="color: #2aa198;">'b'</span>);                   <span style="color: #586e75; font-style: italic;">% plot in blue</span>
-hold on                                 <span style="color: #586e75; font-style: italic;">% add new plots to the same figure</span>
-x = <span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.05<span style="color: #b58900;">:</span>3;                          <span style="color: #586e75; font-style: italic;">% small step size</span>
-plot(x, sin(x), <span style="color: #2aa198;">'r'</span>);                   <span style="color: #586e75; font-style: italic;">% plot in red</span>
+x = <span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.5<span style="color: #b58900;">:</span>3;                           <span style="color: #93a1a1; font-style: italic;">% large step size</span>
+plot(x, sin(x), <span style="color: #2aa198;">'b'</span>);                   <span style="color: #93a1a1; font-style: italic;">% plot in blue</span>
+hold on                                 <span style="color: #93a1a1; font-style: italic;">% add new plots to the same figure</span>
+x = <span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.05<span style="color: #b58900;">:</span>3;                          <span style="color: #93a1a1; font-style: italic;">% small step size</span>
+plot(x, sin(x), <span style="color: #2aa198;">'r'</span>);                   <span style="color: #93a1a1; font-style: italic;">% plot in red</span>
 legend(<span style="color: #2aa198;">'Large step size'</span>, <span style="color: #2aa198;">'Small steps'</span>);
 </pre>
 </div>
@@ -2803,19 +3155,18 @@ for red, green, and blue&#x2014;taken from a so-called <i>colormap</i>.  This
 is illustrated by the following example.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab"><span style="color: #586e75; font-style: italic;">% Define parameter combinations</span>
+<pre class="src src-matlab"><span style="color: #93a1a1; font-style: italic;">% Define parameter combinations</span>
 mu_sigma = [  0,  1
               0,  3
               1,  0.5
              <span style="color: #b58900;">-</span>1,  2
            <span style="color: #b58900;">-</span>0.5,  0.8];
 
-n   = size(mu_sigma, 1);                <span style="color: #586e75; font-style: italic;">% number of plots</span>
-x   = linspace(<span style="color: #b58900;">-</span>4, 4, 201);             <span style="color: #586e75; font-style: italic;">% define the x-range</span>
-leg = cell(n, 1);                       <span style="color: #586e75; font-style: italic;">% initialize empty legend cell array</span>
+n   = size(mu_sigma, 1);                <span style="color: #93a1a1; font-style: italic;">% number of plots</span>
+x   = linspace(<span style="color: #b58900;">-</span>4, 4, 201);             <span style="color: #93a1a1; font-style: italic;">% define the x-range</span>
+leg = cell(n, 1);                       <span style="color: #93a1a1; font-style: italic;">% initialize empty legend cell array</span>
 
-<span style="color: #586e75; font-style: italic;">% Get the RGB-colors from the 'lines' colormap</span>
+<span style="color: #93a1a1; font-style: italic;">% Get the RGB-colors from the 'lines' colormap</span>
 colmap = lines(n);
 
 <span style="color: #b58900;">figure</span>;
@@ -2823,7 +3174,7 @@ hold on
 <span style="color: #859900;">for</span> <span style="color: #268bd2;">i</span>=<span style="color: #2aa198;">1:n</span>
     mu    = mu_sigma(i, 1);
     sigma = mu_sigma(i, 2);
-    <span style="color: #586e75; font-style: italic;">% Plot using the RGB-colors in the i-th row from the colormap</span>
+    <span style="color: #93a1a1; font-style: italic;">% Plot using the RGB-colors in the i-th row from the colormap</span>
     plot(x, normpdf(x, mu, sigma), <span style="color: #2aa198;">'color'</span>, colmap(i,<span style="color: #b58900;">:</span>));
     leg{i} = sprintf(<span style="color: #2aa198;">'N(%g, %g)'</span>, mu, sigma);
 <span style="color: #859900;">end</span>
@@ -2843,15 +3194,14 @@ colormaps such as <code>gray</code>, <code>pink</code>, <code>cool</code>, <code
 </div>
 </div>
 
-<div id="outline-container-orgheadline66" class="outline-3">
-<h3 id="orgheadline66"><span class="section-number-3">7.2</span> 3D graphics</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-orgedb78aa" class="outline-3">
+<h3 id="orgedb78aa"><span class="section-number-3">8.2</span> 3D graphics</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
 Making 3D plots is not much different than creating 2D plots.  Let's
 see some examples.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">t = 0<span style="color: #b58900;">:</span>.1<span style="color: #b58900;">:</span>2<span style="color: #b58900;">*</span><span style="color: #2aa198;">pi</span>;
 x = t<span style="color: #b58900;">.^</span>3<span style="color: #b58900;">.*</span>sin(3<span style="color: #b58900;">*</span>t)<span style="color: #b58900;">.*</span>exp(<span style="color: #b58900;">-</span>t);
 y = t<span style="color: #b58900;">.^</span>3<span style="color: #b58900;">.*</span>cos(3<span style="color: #b58900;">*</span>t)<span style="color: #b58900;">.*</span>exp(<span style="color: #b58900;">-</span>t);
@@ -2866,7 +3216,6 @@ plot3(x,y,z); grid on
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-matlab">n = 200;
 x = randn(n,1);
 y = randn(n,1);
@@ -2888,7 +3237,6 @@ evaluate the function.  The following example illustrates the
 <code>meshgrid</code> function.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">[x,y] = meshgrid(1<span style="color: #b58900;">:</span>5, [10, 20])
 z = x <span style="color: #b58900;">+</span> y
 </pre>
@@ -2917,13 +3265,12 @@ How we can use the <code>meshgrid</code> function to create various 3D plots is
 illustrated by the next example.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">[x,y] = meshgrid(<span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>3, <span style="color: #b58900;">-</span>2<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>2);
 z = (x<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> 2<span style="color: #b58900;">*</span>x) <span style="color: #b58900;">.*</span> exp(<span style="color: #b58900;">-</span>x<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> y<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> x<span style="color: #b58900;">.*</span>y);
 
 <span style="color: #b58900;">figure</span>;
 
-<span style="color: #586e75; font-style: italic;">% Create the first subplot of a figure with 6 (3x2) subplots</span>
+<span style="color: #93a1a1; font-style: italic;">% Create the first subplot of a figure with 6 (3x2) subplots</span>
 subplot(3,2,1);
 mesh(x,y,z);
 
@@ -2957,7 +3304,6 @@ two-dimensional input argument instead of two one-dimensional input
 arguments.  For instance,
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">f = @(x,y) (x<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> 2<span style="color: #b58900;">*</span>x) <span style="color: #b58900;">.*</span> exp(<span style="color: #b58900;">-</span>x<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> y<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> x<span style="color: #b58900;">.*</span>y);
 </pre>
 </div>
@@ -2965,7 +3311,6 @@ arguments.  For instance,
 defines the same function as
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">g = @(x) (x(<span style="color: #b58900;">:</span>,1)<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> 2<span style="color: #b58900;">*</span>x(<span style="color: #b58900;">:</span>,1)) <span style="color: #b58900;">.*</span> exp(<span style="color: #b58900;">-</span>x(<span style="color: #b58900;">:</span>,1)<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> x(<span style="color: #b58900;">:</span>,2)<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">-</span> x(<span style="color: #b58900;">:</span>,1)<span style="color: #b58900;">.*</span>x(<span style="color: #b58900;">:</span>,2));
 </pre>
 </div>
@@ -2976,22 +3321,21 @@ because the output of <code>meshgrid</code> cannot be directly applied.
 Fortunately, it is not too difficult to accomplish:
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab">[x,y] = meshgrid(<span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>3, <span style="color: #b58900;">-</span>2<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>2); <span style="color: #586e75; font-style: italic;">% generate the grid as before</span>
-X = [x(<span style="color: #b58900;">:</span>) y(<span style="color: #b58900;">:</span>)];                <span style="color: #586e75; font-style: italic;">% put all (x,y) combinations from the grid in</span>
-                                <span style="color: #586e75; font-style: italic;">% the rows of a two-column matrix</span>
-z = g(X);                       <span style="color: #586e75; font-style: italic;">% evaluate the function (this will be a</span>
-                                <span style="color: #586e75; font-style: italic;">% column vector)</span>
-z = reshape(z, size(x))         <span style="color: #586e75; font-style: italic;">% reshape to the same size as x (and y)</span>
-mesh(x,y,z)                     <span style="color: #586e75; font-style: italic;">% generate the 3D mesh plot</span>
+<pre class="src src-matlab">[x,y] = meshgrid(<span style="color: #b58900;">-</span>3<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>3, <span style="color: #b58900;">-</span>2<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>2); <span style="color: #93a1a1; font-style: italic;">% generate the grid as before</span>
+X = [x(<span style="color: #b58900;">:</span>) y(<span style="color: #b58900;">:</span>)];                <span style="color: #93a1a1; font-style: italic;">% put all (x,y) combinations from the grid in</span>
+                                <span style="color: #93a1a1; font-style: italic;">% the rows of a two-column matrix</span>
+z = g(X);                       <span style="color: #93a1a1; font-style: italic;">% evaluate the function (this will be a</span>
+                                <span style="color: #93a1a1; font-style: italic;">% column vector)</span>
+z = reshape(z, size(x))         <span style="color: #93a1a1; font-style: italic;">% reshape to the same size as x (and y)</span>
+mesh(x,y,z)                     <span style="color: #93a1a1; font-style: italic;">% generate the 3D mesh plot</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline67" class="outline-3">
-<h3 id="orgheadline67"><a id="ID-543f427a-e5da-408c-8089-54765162408d"></a><span class="section-number-3">7.3</span> Exercise: probability distributions</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-orgbd828f9" class="outline-3">
+<h3 id="orgbd828f9"><a id="ID-543f427a-e5da-408c-8089-54765162408d"></a><span class="section-number-3">8.3</span> Exercise: probability distributions</h3>
+<div class="outline-text-3" id="text-8-3">
 <p>
 For each of the plots that you make in this exercise make sure that
 you give different plots a different color or line style and include
@@ -3002,8 +3346,9 @@ appropriate titles, axis labels and legends.
 <li>Plot the probability density function (pdf) for the normal
 distribution with mean \(\mu=1\) and standard deviations \(\sigma =
    0.1, 0.5, 1, 2\) in one plot.</li>
-<li>Do the same for the gamma distribution (first derive the shape and
-scale parameter).</li>
+<li>Do the same for the gamma distribution.  You can use the following
+property: the shape parameter is \(\mu^2 / \sigma^2\) and the scale
+parameter is \(\sigma^2 / \mu\).</li>
 <li>Plot the pdf of both the normal and gamma distribution (take
 \(\mu=1\) and \(\sigma=1\)) in one plot.</li>
 <li>Draw 100 random numbers from the \(N(1,1)\) distribution.  In one
@@ -3020,14 +3365,14 @@ different colors.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline75" class="outline-2">
-<h2 id="orgheadline75"><a id="ID-68383390-ba38-4f0d-96d7-22763def304e"></a><span class="section-number-2">8</span> Regression</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org010d2f1" class="outline-2">
+<h2 id="org010d2f1"><a id="ID-68383390-ba38-4f0d-96d7-22763def304e"></a><span class="section-number-2">9</span> Regression</h2>
+<div class="outline-text-2" id="text-9">
 </div>
 
-<div id="outline-container-orgheadline69" class="outline-3">
-<h3 id="orgheadline69"><span class="section-number-3">8.1</span> Introduction</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-org0c3976c" class="outline-3">
+<h3 id="org0c3976c"><span class="section-number-3">9.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-9-1">
 <p>
 Regression using the least squares criterion can be summarized by the
 following optimization problem
@@ -3092,7 +3437,7 @@ We distinguish the following functional forms for the function \(F\).
 
 <p>
 The first case simply corresponds the the standard linear regression
-problem, which we discussed in the section about <a href="#orgheadline48">Linear algebra</a>.  The
+problem, which we discussed in the section about <a href="#orge3cb9dd">Linear algebra</a>.  The
 second and third type are extensions to this problem where we put a
 simple nonnegativity restriction on \(x\) or general linear constraints.
 The last two types correspond to cases where the objective is
@@ -3101,9 +3446,9 @@ nonlinear.
 </div>
 </div>
 
-<div id="outline-container-orgheadline70" class="outline-3">
-<h3 id="orgheadline70"><span class="section-number-3">8.2</span> Linear regression</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-org454b263" class="outline-3">
+<h3 id="org454b263"><span class="section-number-3">9.2</span> Linear regression</h3>
+<div class="outline-text-3" id="text-9-2">
 <p>
 Suppose we have a quadratic function
 </p>
@@ -3129,32 +3474,31 @@ what counts.
 We would solve this problem as follows.
 </p>
 <div class="org-src-container">
+<pre class="src src-matlab"><span style="color: #93a1a1; font-weight: bold; font-style: italic; text-decoration: overline;">%% First create some data to work with</span>
+beta = [1 <span style="color: #b58900;">-</span>1 1]';               <span style="color: #93a1a1; font-style: italic;">% the true coefficients</span>
+m = 5;                          <span style="color: #93a1a1; font-style: italic;">% number of observations</span>
+sigma = 0.02;                   <span style="color: #93a1a1; font-style: italic;">% st.dev</span>
+x = rand(m,1);                  <span style="color: #93a1a1; font-style: italic;">% the locations of the observations</span>
+X = [x<span style="color: #b58900;">.^</span>2, x, ones(m,1)]        <span style="color: #93a1a1; font-style: italic;">% data/regression matrix</span>
+y = X<span style="color: #b58900;">*</span>beta <span style="color: #b58900;">+</span> normrnd(0, sigma, m, 1); <span style="color: #93a1a1; font-style: italic;">% the perturbed y-values</span>
 
-<pre class="src src-matlab"><span style="color: #586e75; font-weight: bold; font-style: italic; text-decoration: overline;">%% First create some data to work with</span>
-beta = [1 <span style="color: #b58900;">-</span>1 1]';               <span style="color: #586e75; font-style: italic;">% the true coefficients</span>
-m = 5;                          <span style="color: #586e75; font-style: italic;">% number of observations</span>
-sigma = 0.02;                   <span style="color: #586e75; font-style: italic;">% st.dev</span>
-x = rand(m,1);                  <span style="color: #586e75; font-style: italic;">% the locations of the observations</span>
-X = [x<span style="color: #b58900;">.^</span>2, x, ones(m,1)]        <span style="color: #586e75; font-style: italic;">% data/regression matrix</span>
-y = X<span style="color: #b58900;">*</span>beta <span style="color: #b58900;">+</span> normrnd(0, sigma, m, 1); <span style="color: #586e75; font-style: italic;">% the perturbed y-values</span>
+<span style="color: #93a1a1; font-weight: bold; font-style: italic; text-decoration: overline;">%% Do the regression and some analysis</span>
+b = X<span style="color: #b58900;">\</span>y;                        <span style="color: #93a1a1; font-style: italic;">% estimate beta</span>
+yhat = X<span style="color: #b58900;">*</span>b;                     <span style="color: #93a1a1; font-style: italic;">% predictions</span>
+e = y <span style="color: #b58900;">-</span> yhat;                   <span style="color: #93a1a1; font-style: italic;">% errors</span>
+sigmahat = sqrt(e'<span style="color: #b58900;">*</span>e<span style="color: #b58900;">/</span>(m<span style="color: #b58900;">-</span>length(b))); <span style="color: #93a1a1; font-style: italic;">% estimate for sigma</span>
 
-<span style="color: #586e75; font-weight: bold; font-style: italic; text-decoration: overline;">%% Do the regression and some analysis</span>
-b = X<span style="color: #b58900;">\</span>y;                        <span style="color: #586e75; font-style: italic;">% estimate beta</span>
-yhat = X<span style="color: #b58900;">*</span>b;                     <span style="color: #586e75; font-style: italic;">% predictions</span>
-e = y <span style="color: #b58900;">-</span> yhat;                   <span style="color: #586e75; font-style: italic;">% errors</span>
-sigmahat = sqrt(e'<span style="color: #b58900;">*</span>e<span style="color: #b58900;">/</span>(m<span style="color: #b58900;">-</span>length(b))); <span style="color: #586e75; font-style: italic;">% estimate for sigma</span>
-
-<span style="color: #586e75; font-style: italic;">% Display results</span>
+<span style="color: #93a1a1; font-style: italic;">% Display results</span>
 fprintf(1, <span style="color: #2aa198;">'Coefficients (true and estimated)\n'</span>);
 fprintf(1, <span style="color: #2aa198;">'%8g %8.4f\n'</span>, [beta, b]');
 fprintf(1, <span style="color: #2aa198;">'\nStandard deviation (true and estimated)\n'</span>);
 fprintf(1, <span style="color: #2aa198;">'%8g %8.4f\n'</span>, [sigma, sigmahat]');
 
-<span style="color: #586e75; font-weight: bold; font-style: italic; text-decoration: overline;">%% Do some visualization</span>
+<span style="color: #93a1a1; font-weight: bold; font-style: italic; text-decoration: overline;">%% Do some visualization</span>
 fun = @(x,beta) beta(1)<span style="color: #b58900;">*</span>x<span style="color: #b58900;">.^</span>2 <span style="color: #b58900;">+</span> beta(2)<span style="color: #b58900;">*</span>x <span style="color: #b58900;">+</span> beta(3);
 
 <span style="color: #b58900;">figure</span>;
-<span style="color: #586e75; font-style: italic;">%plot(x, y, 'k.', 'markersize', 12);</span>
+<span style="color: #93a1a1; font-style: italic;">%plot(x, y, 'k.', 'markersize', 12);</span>
 scatter(x, y, <span style="color: #2aa198;">'k'</span>, <span style="color: #2aa198;">'filled'</span>);
 hold on
 fplot(@(x) fun(x,beta), [0 1], <span style="color: #2aa198;">'r'</span>);
@@ -3180,9 +3524,9 @@ Standard deviation (true and estimated)
 </div>
 </div>
 
-<div id="outline-container-orgheadline71" class="outline-3">
-<h3 id="orgheadline71"><span class="section-number-3">8.3</span> Nonlinear regression</h3>
-<div class="outline-text-3" id="text-8-3">
+<div id="outline-container-org967ea8e" class="outline-3">
+<h3 id="org967ea8e"><span class="section-number-3">9.3</span> Nonlinear regression</h3>
+<div class="outline-text-3" id="text-9-3">
 <p>
 Now consider the situation where we have observations from the model
 </p>
@@ -3227,15 +3571,14 @@ solver, which makes the optimization more efficient.  In Matlab we can
 create a m-file function:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab"><span style="color: #859900;">function</span> <span style="color: #268bd2;">[f,Jf]</span> = <span style="color: #268bd2;">nonlinfun</span>(<span style="color: #268bd2;">a</span>,<span style="color: #268bd2;">x</span>)
 
-<span style="color: #586e75; font-style: italic;">% We split the computation, because we can reuse the results in the Jacobian</span>
-<span style="color: #586e75; font-style: italic;">% evaluation.</span>
+<span style="color: #93a1a1; font-style: italic;">% We split the computation, because we can reuse the results in the Jacobian</span>
+<span style="color: #93a1a1; font-style: italic;">% evaluation.</span>
 y = exp(a(2)<span style="color: #b58900;">*</span>x);
 f = a(1)<span style="color: #b58900;">*</span>y;
 
-<span style="color: #586e75; font-style: italic;">% Return the Jacobian only if asked for</span>
+<span style="color: #93a1a1; font-style: italic;">% Return the Jacobian only if asked for</span>
 <span style="color: #859900;">if</span> nargout <span style="color: #b58900;">&gt;</span> 1
   Jf = [y, x<span style="color: #b58900;">.*</span>f];
 <span style="color: #859900;">end</span>
@@ -3245,34 +3588,34 @@ f = a(1)<span style="color: #b58900;">*</span>y;
 We solve the problem using <code>lsqcurvefit</code>.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-matlab"><span style="color: #586e75; font-style: italic;">% Define function and true parameter</span>
+<pre class="src src-matlab"><span style="color: #93a1a1; font-style: italic;">% Define function and true parameter</span>
 a = [4; <span style="color: #b58900;">-</span>1];
-truefun = @(x)(nonlinfun(a,x)); <span style="color: #586e75; font-style: italic;">% the true function</span>
+truefun = @(x)(nonlinfun(a,x)); <span style="color: #93a1a1; font-style: italic;">% the true function</span>
 
-<span style="color: #586e75; font-style: italic;">% Create a data set</span>
+<span style="color: #93a1a1; font-style: italic;">% Create a data set</span>
 x = (0<span style="color: #b58900;">:</span>0.1<span style="color: #b58900;">:</span>1)';
-y = truefun(x) <span style="color: #b58900;">+</span> 0.3<span style="color: #b58900;">*</span>randn(size(x)); <span style="color: #586e75; font-style: italic;">% add some noise</span>
+y = truefun(x) <span style="color: #b58900;">+</span> 0.3<span style="color: #b58900;">*</span>randn(size(x)); <span style="color: #93a1a1; font-style: italic;">% add some noise</span>
 
-<span style="color: #586e75; font-weight: bold; font-style: italic; text-decoration: overline;">%% Try to estimate parameter 'a' using data (x,y)</span>
+<span style="color: #93a1a1; font-weight: bold; font-style: italic; text-decoration: overline;">%% Try to estimate parameter 'a' using data (x,y)</span>
 
-<span style="color: #586e75; font-style: italic;">% initial estimate, no lower/upper bounds</span>
+<span style="color: #93a1a1; font-style: italic;">% initial estimate, no lower/upper bounds</span>
 a0 = [1; 1]; lb = []; ub = [];
 
-<span style="color: #586e75; font-style: italic;">% Change some solver options</span>
-opt = optimset(<span style="color: #2aa198;">'lsqcurvefit'</span>);
-opt = optimset(opt, <span style="text-decoration: underline;">...</span>
-               <span style="color: #2aa198;">'display'</span>, <span style="color: #2aa198;">'iter'</span>, <span style="text-decoration: underline;">...</span>
-               <span style="color: #2aa198;">'jacobian'</span>, <span style="color: #2aa198;">'on'</span>, <span style="text-decoration: underline;">...</span>
-               <span style="color: #2aa198;">'derivativecheck'</span>, <span style="color: #2aa198;">'on'</span>);
+<span style="color: #93a1a1; font-style: italic;">% Change some solver options: gradient is specified as second output</span>
+<span style="color: #93a1a1; font-style: italic;">% argument of function (SpecifyObjectiveGradient) and check whether this</span>
+<span style="color: #93a1a1; font-style: italic;">% gradient is correct (CheckGradients)</span>
+opt = optimoptions(<span style="color: #2aa198;">'lsqcurvefit'</span>, <span style="text-decoration: underline;">...</span>
+                   <span style="color: #2aa198;">'Display'</span>, <span style="color: #2aa198;">'iter'</span>, <span style="text-decoration: underline;">...</span>
+                   <span style="color: #2aa198;">'SpecifyObjectiveGradient'</span>, true, <span style="text-decoration: underline;">...</span>
+                   <span style="color: #2aa198;">'CheckGradients'</span>, true);
 
-<span style="color: #586e75; font-style: italic;">% Estimate 'a'</span>
+<span style="color: #93a1a1; font-style: italic;">% Estimate 'a'</span>
 ahat = lsqcurvefit(@nonlinfun, a0, x, y, lb, ub, opt);
 
-<span style="color: #586e75; font-style: italic;">% Anonymous function for the estimated function by pluggin in the estimate</span>
+<span style="color: #93a1a1; font-style: italic;">% Anonymous function for the estimated function by pluggin in the estimate</span>
 estimfun = @(x) nonlinfun(ahat,x);
 
-<span style="color: #586e75; font-style: italic;">% Plot the results</span>
+<span style="color: #93a1a1; font-style: italic;">% Plot the results</span>
 clf; plot(x, y, <span style="color: #2aa198;">'.'</span>);
 hold on; grid on
 fplot(truefun, [0 1], <span style="color: #2aa198;">'r'</span>);
@@ -3288,12 +3631,12 @@ legend(<span style="color: #2aa198;">'data'</span>, <span style="color: #2aa198;
 </div>
 </div>
 
-<div id="outline-container-orgheadline74" class="outline-3">
-<h3 id="orgheadline74"><span class="section-number-3">8.4</span> Exercises</h3>
-<div class="outline-text-3" id="text-8-4">
-</div><div id="outline-container-orgheadline72" class="outline-4">
-<h4 id="orgheadline72"><a id="ID-ec644b32-5524-4232-b91b-15379d8b87a8"></a><span class="section-number-4">8.4.1</span> Nonlinear regression</h4>
-<div class="outline-text-4" id="text-8-4-1">
+<div id="outline-container-orgc77755a" class="outline-3">
+<h3 id="orgc77755a"><span class="section-number-3">9.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-9-4">
+</div><div id="outline-container-org5abdb1d" class="outline-4">
+<h4 id="org5abdb1d"><a id="ID-ec644b32-5524-4232-b91b-15379d8b87a8"></a><span class="section-number-4">9.4.1</span> Nonlinear regression</h4>
+<div class="outline-text-4" id="text-9-4-1">
 <p>
 The data below can be modeled by the equation
 </p>
@@ -3358,18 +3701,29 @@ data set.
 </p>
 
 <p>
-<b>Hint.</b> Anonymous functions will be very useful here.  Define
+<i>Hints.</i> Anonymous functions will be very useful here. Define
 anonymous functions for the model and each of the objectives to be
-minimized for <code>lsqcurvefit</code>, <code>lsqnonlin</code> and <code>fminsearch</code>.  Carefully
+minimized for <code>lsqcurvefit</code>, <code>lsqnonlin</code> and <code>fminsearch</code>. Carefully
 look at the required input/output arguments for these objective
 functions.
 </p>
+<ol class="org-ol">
+<li><code>lsqcurvefit</code> needs the model function where the parameters are the
+first argument (\(a\) and \(b\) combined in a vector of size 2), and
+the data the second.</li>
+<li><code>lsqnonlin</code> only needs the vector of errors as a function of the
+parameter. This can easily be derived using the model defined
+for <code>lsqcurvefit</code>.</li>
+<li><code>fminsearch</code> needs only the sum of squares (i.e., a scalar) as a
+function of the parameter. Again, this is easy using the error
+function defined for <code>lsqnonlin</code>.</li>
+</ol>
 </div>
 </div>
 
-<div id="outline-container-orgheadline73" class="outline-4">
-<h4 id="orgheadline73"><span class="section-number-4">8.4.2</span> Estimating a full quadratic model using linear regression</h4>
-<div class="outline-text-4" id="text-8-4-2">
+<div id="outline-container-org541a5ea" class="outline-4">
+<h4 id="org541a5ea"><span class="section-number-4">9.4.2</span> Estimating a full quadratic model using linear regression</h4>
+<div class="outline-text-4" id="text-9-4-2">
 <p>
 Consider the full quadratic model
 </p>
@@ -3391,9 +3745,12 @@ by linear regression.  This implies that there exist functions
 <p>
 such that
 </p>
-\begin{equation*}
-  c + b^Tx + x^TAx = r(x)^T \alpha(A,b,c)
-\end{equation*}
+\begin{align*}
+  c + b^Tx + x^TAx
+&= c + \sum_i b_i x_{i} + \sum_i \sum_j A_{ij} x_{i} x_{j} \\
+&= \sum_k \alpha_k(A,b,c) r_k(x_i) \\
+&=  r(x)^T \alpha(A,b,c).
+\end{align*}
 <p>
 In Matlab, the vector \(r(x)\) can be created using the <code>x2fx</code> function
 (look at the documentation for this function).  The function \(\alpha\)
@@ -3598,9 +3955,9 @@ quadratic function for the range \(x_1,x_2 \in [-2, 2]\).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline81" class="outline-2">
-<h2 id="orgheadline81"><a id="ID-9f896711-2007-4cdd-9903-6ec754c615d2"></a><span class="section-number-2">9</span> Interpolation</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-org6d5aa4c" class="outline-2">
+<h2 id="org6d5aa4c"><a id="ID-9f896711-2007-4cdd-9903-6ec754c615d2"></a><span class="section-number-2">10</span> Interpolation</h2>
+<div class="outline-text-2" id="text-10">
 <p>
 Sometimes we want our estimating function to pass through the
 observations, i.e., the estimate is equal to the observation.  In that
@@ -3609,9 +3966,9 @@ interpolating method.
 </p>
 </div>
 
-<div id="outline-container-orgheadline76" class="outline-3">
-<h3 id="orgheadline76"><span class="section-number-3">9.1</span> One-dimensional interpolation</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-orgf0933e0" class="outline-3">
+<h3 id="orgf0933e0"><span class="section-number-3">10.1</span> One-dimensional interpolation</h3>
+<div class="outline-text-3" id="text-10-1">
 <p>
 The one-dimensional interpolation problem is summarized as follows.
 </p>
@@ -3637,7 +3994,6 @@ monotonicity</li>
 This is illustrated by the following example:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-matlab">x = [0 1 3 5 6 8 10]';
 y = sin(x);
 v = (0<span style="color: #b58900;">:</span>.1<span style="color: #b58900;">:</span>10)';
@@ -3657,9 +4013,9 @@ legend(<span style="color: #2aa198;">'Data'</span>, <span style="color: #2aa198;
 </div>
 </div>
 
-<div id="outline-container-orgheadline77" class="outline-3">
-<h3 id="orgheadline77"><span class="section-number-3">9.2</span> Higher-dimensional interpolation</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-orgb4c1913" class="outline-3">
+<h3 id="orgb4c1913"><span class="section-number-3">10.2</span> Higher-dimensional interpolation</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
 Two-dimensional interpolation is solved very similarly using
 <code>interp2</code>.  Higher dimension interpolation problems are supported by
@@ -3668,9 +4024,9 @@ the functions <code>interp3</code>, <code>interpn</code> and <code>ndgrid</code>
 </div>
 </div>
 
-<div id="outline-container-orgheadline78" class="outline-3">
-<h3 id="orgheadline78"><span class="section-number-3">9.3</span> Interpolation of scattered data</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-org8240cc9" class="outline-3">
+<h3 id="org8240cc9"><span class="section-number-3">10.3</span> Interpolation of scattered data</h3>
+<div class="outline-text-3" id="text-10-3">
 <p>
 The interpolation methods we have discussed so far all require that
 the observations are on a grid.  Hence, for the two-dimensional
@@ -3689,9 +4045,9 @@ we shall consider yet another approach.
 </div>
 </div>
 
-<div id="outline-container-orgheadline79" class="outline-3">
-<h3 id="orgheadline79"><span class="section-number-3">9.4</span> Interpolation using Radial Basis Functions</h3>
-<div class="outline-text-3" id="text-9-4">
+<div id="outline-container-org90f9eed" class="outline-3">
+<h3 id="org90f9eed"><span class="section-number-3">10.4</span> Interpolation using Radial Basis Functions</h3>
+<div class="outline-text-3" id="text-10-4">
 <p>
 Consider a scattered data set
 </p>
@@ -3754,9 +4110,9 @@ arise because rows become nearly dependent.
 </div>
 </div>
 
-<div id="outline-container-orgheadline80" class="outline-3">
-<h3 id="orgheadline80"><a id="ID-4ddb35e2-9de3-424d-8bf7-d5b3a15b8f28"></a><span class="section-number-3">9.5</span> Exercise: interpolation</h3>
-<div class="outline-text-3" id="text-9-5">
+<div id="outline-container-org46022db" class="outline-3">
+<h3 id="org46022db"><a id="ID-4ddb35e2-9de3-424d-8bf7-d5b3a15b8f28"></a><span class="section-number-3">10.5</span> Exercise: interpolation</h3>
+<div class="outline-text-3" id="text-10-5">
 <p>
 Load the data in the file <a href="scattered.txt">scattered.txt</a>, which gives some
 observations (in the third column) of a two-dimensional model.
@@ -3770,7 +4126,7 @@ points.</li>
 <li>Try to produce some interpolating radial basis approximations using
 several choices for the radial basis function class and associated
 constant.  Again visualize the results.  Your solution to the
-exercise about the <a href="#orgheadline27">Euclidean distance</a> might be useful in creating
+exercise about the <a href="#org927f08f">Euclidean distance</a> might be useful in creating
 the \(\Phi\) matrix.</li>
 </ol>
 </div>
@@ -3779,8 +4135,8 @@ the \(\Phi\) matrix.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ruud Brekelmans</p>
-<p class="date">Created: 2016-08-30 Tue 10:08</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.3.4)</p>
+<p class="date">Created: 2017-08-23 Wed 11:21</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.1 (<a href="http://orgmode.org">Org</a> mode 9.0.7)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

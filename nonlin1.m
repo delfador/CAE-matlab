@@ -11,12 +11,13 @@ y = truefun(x) + 0.3*randn(size(x)); % add some noise
 % initial estimate, no lower/upper bounds
 a0 = [1; 1]; lb = []; ub = [];
 
-% Change some solver options
-opt = optimset('lsqcurvefit');
-opt = optimset(opt, ...
-               'display', 'iter', ...
-               'jacobian', 'on', ...
-               'derivativecheck', 'on');
+% Change some solver options: gradient is specified as second output
+% argument of function (SpecifyObjectiveGradient) and check whether this
+% gradient is correct (CheckGradients)
+opt = optimoptions('lsqcurvefit', ...
+                   'Display', 'iter', ...
+                   'SpecifyObjectiveGradient', true, ...
+                   'CheckGradients', true);
 
 % Estimate 'a'
 ahat = lsqcurvefit(@nonlinfun, a0, x, y, lb, ub, opt);

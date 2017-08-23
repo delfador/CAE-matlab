@@ -40,7 +40,7 @@ y = x;
 i = find(y<0);
 while ~isempty(i)
     % Move negative values back in time
-    y(i-1) = y(i-1)+y(i);
+    y(i-1) = y(i-1) + y(i);
     
     % Get rid of the negative entry
     y(i) = 0;
