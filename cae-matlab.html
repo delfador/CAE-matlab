@@ -2459,8 +2459,8 @@ than in the case without the Jacobian. The partial derivatives of
   \frac{\partial f_i(x)}{\partial x_j} =
   \begin{cases}
     -1 & \text{for } (i,j) = (k, 2k-1),\; k=1,\dots,n/2\\
-    20(x_i-x_j) & \text{for } (i,j) = (n/2+k,2k-1),\; k=1,\dots,n/2\\
-    -20(x_i-x_j) & \text{for } (i,j) = (n/2+k,2k),\; k=1,\dots,n/2\\
+    20(x_{2k-1}-x_{2k}) & \text{for } (i,j) = (n/2+k,2k-1),\; k=1,\dots,n/2\\
+    -20(x_{2k-1}-x_{2k}) & \text{for } (i,j) = (n/2+k,2k),\; k=1,\dots,n/2\\
     0 & \text{otherwise}
   \end{cases}
 \end{equation*}</li>
